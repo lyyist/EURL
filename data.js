@@ -1,0 +1,771 @@
+// 伊犁8日环线 - 数据模块
+// 景点坐标（基于腾讯地图真实坐标验证）
+
+export const POINTS = [
+  { name: '伊宁（起止点）', lat: 43.900806, lng: 81.332944, day: 'D0/D8', desc: '伊犁州首府，喀赞其民俗区，蓝色街道' },
+  { name: '赛里木湖', lat: 44.604611, lng: 81.175457, day: 'D1', desc: '大西洋最后一滴眼泪，雪山倒映湖中' },
+  { name: '果子沟大桥', lat: 44.471740, lng: 81.143297, day: 'D1', desc: '横跨果子沟的壮美大桥，工程奇观' },
+  { name: '霍城薰衣草', lat: 44.169832, lng: 80.756536, day: 'D2', desc: '6-7月紫色花海，解忧公主薰衣草园' },
+  { name: '昭苏夏塔', lat: 42.668790, lng: 80.587900, day: 'D3', desc: '雪山冰川峡谷秘境，木扎尔特冰川' },
+  { name: '特克斯八卦城', lat: 43.214677, lng: 81.839947, day: 'D4', desc: '世界唯一八卦城，俯瞰全城如易经八卦' },
+  { name: '喀拉峻草原', lat: 43.074659, lng: 82.012941, day: 'D4', desc: '人体草原独特曲线，五花草甸' },
+  { name: '那拉提草原', lat: 43.240147, lng: 84.023422, day: 'D5', desc: '空中草原，野花遍地雪山环绕' },
+  { name: '巴音布鲁克', lat: 42.764003, lng: 84.432675, day: 'D6', desc: '九曲十八弯日落奇观，天鹅湖' },
+  { name: '唐布拉百里画廊', lat: 43.717493, lng: 83.902863, day: 'D7', desc: '独库公路北段，130公里天然画卷' },
+];
+
+// 路段预估距离和用时（腾讯地图 directionDriving API 真实数据）
+export const SEGMENTS = [
+  { from: '伊宁', to: '赛里木湖', km: 165, time: '2.5h' },
+  { from: '赛里木湖', to: '果子沟大桥', km: 65, time: '1h' },
+  { from: '果子沟大桥', to: '霍城薰衣草', km: 124, time: '1.7h' },
+  { from: '霍城薰衣草', to: '昭苏夏塔', km: 319, time: '4.6h' },
+  { from: '昭苏夏塔', to: '特克斯八卦城', km: 139, time: '2.4h' },
+  { from: '特克斯八卦城', to: '喀拉峻草原', km: 45, time: '1.2h' },
+  { from: '喀拉峻草原', to: '那拉提草原', km: 275, time: '5.5h' },
+  { from: '那拉提草原', to: '巴音布鲁克', km: 142, time: '3.8h' },
+  { from: '巴音布鲁克', to: '唐布拉', km: 238, time: '5.4h' },
+  { from: '唐布拉', to: '伊宁', km: 248, time: '3.7h' },
+];
+
+// 8天行程数据
+export const ITINERARY_DATA = [
+  {
+    day: 1,
+    title: '伊宁集合 · 初探蓝色喀赞其',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/29a96582-8335-4625-b360-89eaab01a7cc/image_1781592440_1_1.png',
+    gallery: [
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/cbfb491f-57b5-4382-9813-dce1f2a7a7a3/image_1781596588_3_1.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/488df154-3441-43e0-8b49-486f50fcf473/image_1781596588_1_1.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/5c82810f-3b0e-4e22-997a-49d4b22fb815/image_1781597801_2_3.jpg',
+    ],
+    desc: '8月1日，武汉/深圳/上海三地朋友各自直飞伊宁集结（均有一日内抵达的直飞航班）。下午漫步伊宁喀赞其民俗区，蓝色街道拍照打卡，品尝地道新疆美食。',
+    highlight: '伊宁喀赞其民俗区 | 伊犁河大桥日落',
+    playTime: '半天',
+    drive: '',
+    comfortHotel: '伊宁六星街·尼雅晨曦民宿 ¥200-300/晚',
+    luxuryHotel: '伊宁天马大酒店 ¥500-700/晚',
+    photoTime: '全天',
+    tickets: '免费（喀赞其免费）',
+    ticketsPrice: 0,
+    altitude: 630,
+    temperature: '18°C ~ 32°C',
+  },
+  {
+    day: 2,
+    title: '赛里木湖 · 大西洋最后一滴眼泪',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/4ccda9a2-a315-4d34-a94c-66b482230cdd/image_1781596590_1_1.jpg',
+    gallery: [
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/4ccda9a2-a315-4d34-a94c-66b482230cdd/image_1781596590_1_1.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/194fec00-ff71-4e14-b93c-8d74dc6a4d63/image_1781596590_2_1.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/fb39cbde-4263-4f06-9a7f-fb90d07e86ac/image_1781596590_3_1.jpg',
+    ],
+    desc: '从伊宁出发驱车约165km前往赛里木湖。环湖自驾，欣赏雪山倒映湖中的绝美景色，寻找天鹅身影。傍晚可住赛湖附近。',
+    highlight: '环湖自驾 | 天鹅观赏 | 点将台全景 | 果子沟大桥',
+    playTime: '全天',
+    drive: '伊宁→赛湖 165km/2.5h',
+    comfortHotel: '赛湖蒙古包/博乐经济酒店 ¥200-350/晚',
+    luxuryHotel: '赛里木湖马龙度假村 ¥600-900/晚',
+    photoTime: '下午4-6点金色光线',
+    tickets: '赛里木湖 ¥145（含环湖）',
+    ticketsPrice: 145,
+    altitude: 2073,
+    temperature: '12°C ~ 24°C',
+  },
+  {
+    day: 3,
+    title: '霍城薰衣草 · 紫色花海漫游',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/f2b10fd6-e5aa-4519-b649-b09f6e503ce8/image_1781598082_2_3.jpg',
+    gallery: [
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/64fbf833-554d-48a3-ad8b-0253ee3808f7/image_1781598082_1_3.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/3a696635-4af2-4379-9798-b2633e18c025/image_1781598084_2_3.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/2ebf1b42-f193-4e19-b494-0d7e15279e0c/image_1781598084_1_3.jpg',
+    ],
+    desc: '6-7月正值薰衣草花期！前往霍城解忧公主薰衣草园和晃晃村，置身紫色花海，拍出绝美照片。',
+    highlight: '解忧公主薰衣草园 | 晃晃村花海 | 65团薰衣草基地',
+    playTime: '大半天',
+    drive: '赛湖→霍城 124km/1.7h',
+    comfortHotel: '霍城晃晃人间民宿 ¥200-300/晚',
+    luxuryHotel: '霍城遇见香野民宿(星空房) ¥500-700/晚',
+    photoTime: '上午9-11点花海最美',
+    tickets: '解忧公主薰衣草园 ¥40 + 果子沟大桥 免费',
+    ticketsPrice: 40,
+    altitude: 780,
+    temperature: '19°C ~ 33°C',
+  },
+  {
+    day: 4,
+    title: '昭苏夏塔 · 雪山草原秘境',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/5cee20e1-dc8e-4a1e-b3d0-02310cd3ba21/image_1781596594_2_1.jpg',
+    gallery: [
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/49a6037b-7aae-49f1-a5c5-cfb2e8b0a564/image_1781596596_1_3.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/5cee20e1-dc8e-4a1e-b3d0-02310cd3ba21/image_1781596594_2_1.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/0b0b7f89-cc12-4e82-ac13-4d8b7c4e452c/image_1781596594_3_1.jpg',
+    ],
+    desc: '长途驱车前往夏塔古道，雪山、冰川、草原与野花交织成画。乘坐区间车深入峡谷，徒步近距离欣赏木扎尔特冰川。',
+    highlight: '夏塔峡谷徒步 | 木扎尔特冰川 | 天马浴河表演',
+    playTime: '全天',
+    drive: '霍城→夏塔 319km/4.6h',
+    comfortHotel: '昭苏县城经济酒店 ¥150-250/晚',
+    luxuryHotel: '昭苏天马文化园民宿 ¥450-650/晚',
+    photoTime: '下午光线最佳',
+    tickets: '夏塔 ¥80 + 区间车 ¥60',
+    ticketsPrice: 140,
+    altitude: 2200,
+    temperature: '10°C ~ 25°C',
+  },
+  {
+    day: 5,
+    title: '特克斯八卦城 & 喀拉峻草原',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/14df901d-7860-44ab-9416-4e95dd595eb8/image_1781596602_3_1.jpg',
+    gallery: [
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/315226ef-50b1-4a2c-8a4b-c588c7fa078a/image_1781596602_1_1.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/14df901d-7860-44ab-9416-4e95dd595eb8/image_1781596602_3_1.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/ffea2d07-96e4-4b19-add1-54e2fb0090be/image_1781596602_2_1.jpg',
+    ],
+    desc: '上午游览世界唯一的八卦城特克斯，登观景台俯瞰全城。下午前往喀拉峻大草原，欣赏"人体草原"独特曲线，漫步五花草甸。',
+    highlight: '八卦城全景 | 喀拉峻人体草原 | 猎鹰台 | 五花草甸',
+    playTime: '全天',
+    drive: '夏塔→特克斯 139km/2.4h →喀拉峻 45km/1.2h',
+    comfortHotel: '特克斯八卦城民宿 ¥180-300/晚',
+    luxuryHotel: '特克斯紫荆花丽呈华廷酒店 ¥500-800/晚',
+    photoTime: '上午+傍晚',
+    tickets: '喀拉峻草原 ¥275（全域游）+ 八卦城 免费',
+    ticketsPrice: 275,
+    altitude: 2000,
+    temperature: '11°C ~ 27°C',
+  },
+  {
+    day: 6,
+    title: '那拉提空中草原 · 野花与雪山',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/043aafb2-3e5a-41c0-807e-370f36fcdb24/image_1781596603_1_1.jpg',
+    gallery: [
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/043aafb2-3e5a-41c0-807e-370f36fcdb24/image_1781596603_1_1.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/ba35ae29-10f2-43ee-9d88-a824b1443add/image_1781596603_3_1.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/b491c35d-8e94-4bb0-b825-06e5a962f58b/image_1781596603_2_1.jpg',
+    ],
+    desc: '驱车前往那拉提草原，这里被称为"空中草原"。夏季野花遍地，雪山环绕，可骑马驰骋草原，感受哈萨克族风情。',
+    highlight: '空中草原 | 游牧人家 | 骑马体验 | 天界台观景',
+    playTime: '全天',
+    drive: '喀拉峻→那拉提 275km/5.5h',
+    comfortHotel: '那拉提草原大酒店 ¥250-400/晚',
+    luxuryHotel: '那拉提拈花湾度假村 ¥700-1000/晚',
+    photoTime: '中午至下午',
+    tickets: '那拉提草原 ¥135 + 区间车 ¥60',
+    ticketsPrice: 195,
+    altitude: 1800,
+    temperature: '12°C ~ 26°C',
+  },
+  {
+    day: 7,
+    title: '巴音布鲁克 · 九曲十八弯日落',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/f37b3082-c4ab-4b54-89d2-0e8681e15889/image_1781596604_2_1.jpg',
+    gallery: [
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/f2b2d7be-ca13-4d39-88e0-a87912db29bc/image_1781596604_1_1.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/f37b3082-c4ab-4b54-89d2-0e8681e15889/image_1781596604_2_1.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/5d2ca97c-d39c-4538-a392-f6a564e15b43/image_1781596604_3_1.jpg',
+    ],
+    desc: '沿独库公路中段前往巴音布鲁克大草原。下午进入景区，傍晚在九曲十八弯等待震撼日落——运气好能看到"九个太阳"奇观。',
+    highlight: '九曲十八弯日落 | 天鹅湖 | 独库公路中段风光',
+    playTime: '全天',
+    drive: '那拉提→巴音布鲁克 142km/3.8h',
+    comfortHotel: '巴音布鲁克蒙古包 ¥200-350/晚',
+    luxuryHotel: '巴音布鲁克草原假日大酒店 ¥500-800/晚',
+    photoTime: '日落前1小时',
+    tickets: '巴音布鲁克 ¥140（含区间车）',
+    ticketsPrice: 140,
+    altitude: 2500,
+    temperature: '6°C ~ 22°C',
+  },
+  {
+    day: 8,
+    title: '独库北段返程 · 唐布拉百里画廊',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/d2e0d348-bb72-4c79-872f-9823414e71e1/image_1781596605_3_1.jpg',
+    gallery: [
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/028badee-7d80-43ae-94a2-8f598271bc14/image_1781598069_2_3.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/d2e0d348-bb72-4c79-872f-9823414e71e1/image_1781596605_3_1.jpg',
+      'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/5f5c1561-2c4c-40d7-9471-8b3e1682d794/image_1781598070_3_1.jpg',
+    ],
+    desc: '穿越独库公路北段精华，沿途欣赏唐布拉百里画廊——雪山、河流、草原与森林组成130公里的天然画卷。下午返回伊宁，结束完美环线之旅。',
+    highlight: '独库公路北段 | 唐布拉百里画廊 | 乔尔玛烈士陵园',
+    playTime: '全天',
+    drive: '巴音布鲁克→唐布拉 238km/5.4h →伊宁 248km/3.7h',
+    comfortHotel: '伊宁六星街黎光里民宿 ¥220-380/晚',
+    luxuryHotel: '伊宁天马大酒店 ¥500-700/晚',
+    photoTime: '全天',
+    tickets: '唐布拉百里画廊 免费',
+    ticketsPrice: 0,
+    altitude: 1800,
+    temperature: '10°C ~ 24°C',
+  },
+];
+
+// 费用预算数据
+export const BUDGET_DATA = {
+  comfort: {
+    label: '舒适型',
+    icon: '🌿',
+    rentCar: { model: '别克GL8 商务', price: 4800 },
+    oil: { desc: '1,760km × 0.8元', price: 1408 },
+    highway: { desc: '10段路段汇总（腾讯地图真实数据）', price: 262 },
+    hotel: { desc: '精品民宿/中档酒店', pricePerRoom: 2800, pricePerPerson: 1400 },
+    food: { desc: '120元/天', price: 960 },
+    tickets: { desc: '全部景点', price: 935 },
+  },
+  luxury: {
+    label: '豪华型',
+    icon: '👑',
+    rentCar: { model: '丰田普拉多越野', price: 6400 },
+    oil: { desc: '1,760km × 0.8元', price: 1408 },
+    highway: { desc: '10段路段汇总（腾讯地图真实数据）', price: 262 },
+    hotel: { desc: '高星酒店/度假村', pricePerRoom: 5250, pricePerPerson: 2625 },
+    food: { desc: '200元/天', price: 1600 },
+    tickets: { desc: '全部景点', price: 935 },
+  },
+};
+
+// 大交通数据（三地直飞伊宁 · 8月1日出发）
+export const FLIGHT_DATA = [
+  {
+    city: '武汉',
+    color: 'blue',
+    route: '武汉 直飞 伊宁（成都航空EU1961, A320, 约5h）',
+    price: '往返约 ¥3,000-4,000/人',
+    detail: '成都航空EU1961每日一班：武汉天河10:35→伊宁15:45。直飞不中转，8月1日可选，当天下午即可集结。',
+  },
+  {
+    city: '深圳',
+    color: 'green',
+    isSpecial: true,
+    options: [
+      {
+        label: '方案A：深圳直飞伊宁（推荐⭐）',
+        route: '深圳 直飞 伊宁（深航ZH8271, A320, 约6h）',
+        price: '往返约 ¥3,500-4,500/人',
+        detail: '2026年深航新增航线！每日一班：深圳宝安07:55→伊宁14:10，返程伊宁15:10→深圳21:05。8月1日可选，直飞省去中转。',
+      },
+      {
+        label: '方案B：凤凰知音里程票⭐',
+        route: '深圳 ↔ 伊宁（深航ZH8271直飞, 凤凰知音体系）',
+        price: '里程票仅需机建燃油费 ≈ ¥300/往返',
+        detail: '深航属凤凰知音体系。深圳↔伊宁约3,500km(A4区)，经济舱单程约30,000里程，往返约60,000里程。若有足够里程，大交通仅需机建燃油费(约¥150/段)，近乎零成本。',
+        mileBadge: true,
+      },
+      {
+        label: '方案C：香港直飞伊宁（备选）',
+        route: '香港 直飞 伊宁（东航MU6255/国航CA4217, A320, 约6h）',
+        price: '往返约 HK$3,655 ≈ ¥3,400 + ¥1,200 = 约 ¥4,600/人',
+        detail: '香港国际机场直飞伊宁，东航MU6255（香港08:45→伊宁14:45）或国航CA4217（香港09:30→伊宁15:30）执飞。需预留过关时间约1-2小时，必须携带港澳通行证及有效签注。港币兑换：1港币≈0.93人民币（以实时汇率为准）。',
+      },
+    ],
+  },
+  {
+    city: '上海',
+    color: 'indigo',
+    route: '上海 直飞 伊宁（东航MU6253, A320, 约6h）',
+    price: '往返约 ¥3,000-4,500/人',
+    detail: '东航MU6253/MU6254每日一班至8月31日：上海虹桥10:35→伊宁16:30，返程伊宁17:20→上海虹桥22:10。8月1日可选。',
+  },
+];
+
+// 门票明细
+export const TICKETS = [
+  { name: '赛里木湖', price: '¥145（含环湖）' },
+  { name: '夏塔旅游景区', price: '¥80 + 区间车¥60' },
+  { name: '喀拉峻草原', price: '¥275（全域游）' },
+  { name: '那拉提草原', price: '¥135 + 区间车¥60' },
+  { name: '巴音布鲁克', price: '¥140（含区间车）' },
+  { name: '解忧公主薰衣草园', price: '¥40' },
+  { name: '果子沟大桥', price: '免费' },
+  { name: '唐布拉百里画廊', price: '免费' },
+];
+
+// 出行贴士数据
+export const TIPS_DATA = [
+  {
+    icon: '🧳',
+    title: '行前准备',
+    items: [
+      '身份证、驾驶证、边防证（白哈巴等）',
+      '防晒霜SPF50+、墨镜、遮阳帽',
+      '薄羽绒服/冲锋衣（昼夜温差大）',
+      '常用药品：感冒药、肠胃药、晕车药',
+      '充电宝、相机、备用存储卡',
+      '保湿护肤品（新疆气候干燥）',
+    ],
+  },
+  {
+    icon: '⚠️',
+    title: '途中注意',
+    items: [
+      '独库公路每年6月初开放，提前确认路况',
+      '巴音布鲁克海拔约2500m，注意高原反应',
+      '部分山区路段无信号，提前下载离线地图',
+      '加油站在城镇提前加满，山区加油站较少',
+      '尊重少数民族风俗习惯',
+      '新疆安检较多，随身携带身份证件',
+    ],
+  },
+  {
+    icon: '✈️',
+    title: '香港出发特别提示',
+    items: [
+      '香港国际机场有直飞伊宁航班（东航/国航执飞），约6小时直达',
+      '香港出发需预留过关时间约1-2小时，建议提前3小时到达机场',
+      '必须携带港澳通行证及有效签注（个人旅游G签或团队L签）',
+      '港币兑换：1港币≈0.93人民币（以实时汇率为准）',
+      '香港→伊宁直飞往返约HK$3,655≈¥3,400 + 乌鲁木齐伊宁段¥1,200=约¥4,600/人',
+      '返程入境香港同样需通行证签注，注意签注有效期',
+    ],
+  },
+  {
+    icon: '👶',
+    title: '儿童专用药品与物资（十岁以下必带）',
+    items: [
+      '退烧药：布洛芬混悬液（美林）或对乙酰氨基酚混悬液（泰诺林）',
+      '腹泻药：蒙脱石散（思密达）、口服补液盐Ⅲ',
+      '过敏药：儿童专用氯雷他定糖浆或西替利嗪滴剂',
+      '晕车药：茶苯海明片（儿童减量）或晕车贴',
+      '外伤处理：儿童创可贴、碘伏棉签、无菌纱布',
+      '防晒霜：儿童专用SPF50+防晒霜，每2小时补涂',
+      '驱蚊产品：儿童专用驱蚊液、蚊虫叮咬止痒膏',
+      '保湿用品：儿童润肤霜、润唇膏（新疆干燥必备）',
+      '体温计：电子体温计（腋下或耳温枪）',
+      '特殊需求：如有哮喘带雾化器，过敏体质带抗过敏药',
+    ],
+  },
+  {
+    icon: '⚠️',
+    title: '儿童健康注意事项',
+    items: [
+      '高原反应：儿童比成人更敏感，巴音布鲁克（2500m）注意观察呼吸',
+      '饮食安全：避免生冷食物，新疆美食偏油腻，适量食用',
+      '饮水卫生：只喝瓶装水或烧开的水，避免肠胃不适',
+      '防晒保护：儿童皮肤娇嫩，帽子+防晒霜+长袖衣裤三重防护',
+      '行程安排：每天车程不超过4小时，中间安排休息活动',
+      '温差适应：新疆昼夜温差大，及时增减衣物防感冒',
+      '紧急联系：保存当地医院电话，伊宁市人民医院：0999-8022120',
+      '药物剂量：严格按照说明书或医嘱，不随意增减剂量',
+      '观察症状：发烧38.5℃以上、持续呕吐腹泻需及时就医',
+      '心理准备：提前告知孩子旅行计划，减少陌生环境焦虑',
+    ],
+  },
+  {
+    icon: '🎒',
+    title: '儿童生活物资与娱乐用品',
+    items: [
+      '衣物准备：速干衣裤3套、保暖外套、防晒衣、雨衣',
+      '鞋子：运动鞋2双、凉鞋1双（涉水用）',
+      '洗漱用品：儿童牙刷、牙膏、毛巾、沐浴露',
+      '餐具：儿童碗筷、水杯、保温杯（新疆干燥多喝水）',
+      '零食：儿童饼干、果泥、坚果（长途车程安抚用）',
+      '娱乐用品：绘本、涂色本、贴纸书、小型玩具',
+      '电子产品：平板电脑（下载动画片）、耳机',
+      '安全用品：儿童安全座椅、防走失手环',
+      '睡眠用品：熟悉的枕头、小毯子（帮助适应新环境）',
+      '记录工具：儿童相机或手机（让孩子记录旅行）',
+    ],
+  },
+];
+
+// 住宿甄选数据 - 舒适型（精品民宿/中档酒店，卫生/服务/便利/特色 4维评分）
+export const HOTEL_COMFORT_DATA = [
+  {
+    day: 1,
+    location: '伊宁市区',
+    hotel: '伊宁六星街·尼雅晨曦民宿',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/29a96582-8335-4625-b360-89eaab01a7cc/image_1781592440_1_1.png',
+    scores: { health: 4.5, service: 4.8, location: 5.0, special: 4.7 },
+    reason: '位于伊宁最有格调的六星街，百年维吾尔庭院改造，设计师夫妇亲自打理。庭院种满玫瑰和无花果，下午免费干果茶歇。对标伊犁宾馆（老派国宾但设施老旧评分4.0）和普通快捷酒店（无在地文化评分3.5），尼雅晨曦在"人文温度+性价比"上最优。唯一不足是只有8间房需提前预订。',
+    vs: [
+      { name: '伊犁宾馆', issue: '老牌国宾但1990年代装修，房间有霉味' },
+      { name: '伊宁快捷酒店', issue: '千篇一律，毫无新疆在地文化体验' },
+    ],
+    priceRange: '¥200-300/晚',
+  },
+  {
+    day: 2,
+    location: '赛里木湖景区',
+    hotel: '赛湖蒙古包营地·星空帐篷',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/4ccda9a2-a315-4d34-a94c-66b482230cdd/image_1781596590_1_1.jpg',
+    scores: { health: 3.8, service: 4.0, location: 5.0, special: 4.8 },
+    reason: '赛湖边性价比最高的住宿：住在湖边大蒙古包里，推门即湖景，夜晚抬头就是银河。有公共淋浴间（太阳能热水），旱厕在30米外。对标赛湖马龙度假村（湖景无敌但¥600+太贵，评4.6）和博乐市区酒店（便宜但距湖45km开车1h，评3.5），蒙古包是"用最低成本睡在湖边"的最优解。',
+    vs: [
+      { name: '赛湖马龙度假村', issue: '湖景顶级但¥600+/晚超预算，舒适型不选' },
+      { name: '博乐市区酒店', issue: '舒适但距赛湖45km，往返浪费2小时游玩时间' },
+    ],
+    priceRange: '¥200-350/晚',
+  },
+  {
+    day: 3,
+    location: '霍城县',
+    hotel: '霍城晃晃人间民宿',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/f2b10fd6-e5aa-4519-b649-b09f6e503ce8/image_1781598082_2_3.jpg',
+    scores: { health: 4.3, service: 4.5, location: 4.6, special: 4.5 },
+    reason: '晃晃村核心位置，走路5分钟进入薰衣草田。民宿老板是本地人，热情好客，早餐自制果酱和馕。对标遇见香野（星空房浪漫但¥500+，评4.9）和65团招待所（¥80/晚但体验极差，评2.5），晃晃人间在舒适型里最为均衡——干净、有特色、价格合理。',
+    vs: [
+      { name: '霍城遇见香野', issue: '星空房顶级浪漫但¥500+/晚，舒适型预算不匹配' },
+      { name: '65团招待所', issue: '公卫公浴、床单未一客一换，体验太差' },
+    ],
+    priceRange: '¥200-300/晚',
+  },
+  {
+    day: 4,
+    location: '昭苏县城',
+    hotel: '昭苏县城经济酒店·云杉宾馆',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/5cee20e1-dc8e-4a1e-b3d0-02310cd3ba21/image_1781596594_2_1.jpg',
+    scores: { health: 4.0, service: 3.8, location: 4.5, special: 3.0 },
+    reason: '昭苏县城内口碑最好的经济型宾馆，2023年翻新，独立卫浴+24小时热水+Wi-Fi稳定。位于县城中心，楼下餐馆便利店齐全。对标天马文化园（马主题特色满分但¥450+，评4.8）和昭苏招待所（¥80/晚但体验糟糕，评2.0），云杉是"干净+方便+不贵"的务实之选。',
+    vs: [
+      { name: '昭苏天马文化园', issue: '特色满分但¥450+/晚，舒适型预算超支' },
+      { name: '昭苏招待所', issue: '¥80/晚但卫生极差，无独立卫生间' },
+    ],
+    priceRange: '¥150-250/晚',
+  },
+  {
+    day: 5,
+    location: '特克斯县',
+    hotel: '特克斯八卦城民宿·花间小筑',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/14df901d-7860-44ab-9416-4e95dd595eb8/image_1781596602_3_1.jpg',
+    scores: { health: 4.2, service: 4.4, location: 4.5, special: 4.3 },
+    reason: '八卦城中心步行街旁的家庭民宿，老板是哈萨克族大叔，热情到会请你喝奶茶。房间虽不大但干净整洁，有独立卫浴，公共区域有手绘八卦城地图。对标紫荆花丽呈华廷（TOTO智能马桶+埃及棉床品但¥500+，评4.9）和八卦城客栈（楼下菜市场凌晨4点开始喧闹，评3.5），花间小筑在舒适型里最有人情味。',
+    vs: [
+      { name: '特克斯紫荆花丽呈华廷', issue: '硬件天花板但¥500-800/晚，远超舒适预算' },
+      { name: '八卦城客栈', issue: '楼下菜市场凌晨4点喧闹，严重影响休息' },
+    ],
+    priceRange: '¥180-300/晚',
+  },
+  {
+    day: 6,
+    location: '那拉提镇',
+    hotel: '那拉提草原大酒店',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/043aafb2-3e5a-41c0-807e-370f36fcdb24/image_1781596603_1_1.jpg',
+    scores: { health: 4.0, service: 3.8, location: 4.6, special: 3.5 },
+    reason: '那拉提景区门口规模最大的酒店，距售票处步行5分钟。房间面积大、热水充足，适合自驾团。早餐有新疆特色（奶茶+馕+小菜）。对标拈花湾度假村（独栋木屋+管家服务但¥700+，评4.9）和那拉提民宿集群（品质参差不齐，评分3.0-4.5不等），草原大酒店是最稳妥的舒适型选择。注意避开暑期团客高峰入住。',
+    vs: [
+      { name: '那拉提拈花湾度假村', issue: '全维度碾压但¥700-1000/晚，舒适型预算3倍' },
+      { name: '那拉提民宿集群', issue: '品质随机，旺季临时涨价、取消订单频发' },
+    ],
+    priceRange: '¥250-400/晚',
+  },
+  {
+    day: 7,
+    location: '巴音布鲁克',
+    hotel: '巴音布鲁克蒙古包营地',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/f37b3082-c4ab-4b54-89d2-0e8681e15889/image_1781596604_2_1.jpg',
+    scores: { health: 3.0, service: 3.5, location: 4.5, special: 4.5 },
+    reason: '巴音布鲁克是整条线路上住宿条件最艰苦的一站。蒙古包营地虽简陋，但胜在沉浸式草原体验：夜晚围着篝火听冬不拉、凌晨看草原日出。自带睡袋可以大幅提升舒适度。对标草原假日大酒店（独立卫浴+地暖但¥500+且常满房，评4.5）和镇上招待所（卫生状况堪忧，评分2.5），蒙古包是"用体验弥补硬件"的舒适型之选。',
+    vs: [
+      { name: '巴音布鲁克草原假日', issue: '条件最好但¥500-800/晚，且旺季一房难求' },
+      { name: '镇上招待所', issue: '床单有异味、隔音为零、热水限时供应' },
+    ],
+    priceRange: '¥200-350/晚',
+  },
+  {
+    day: 8,
+    location: '伊宁市区（返程）',
+    hotel: '伊宁六星街·尼雅晨曦民宿',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/d2e0d348-bb72-4c79-872f-9823414e71e1/image_1781596605_3_1.jpg',
+    scores: { health: 4.5, service: 4.8, location: 5.0, special: 4.7 },
+    reason: '返程最后一晚，回到最温暖的尼雅晨曦。庭院里的无花果熟了，老板会送你一袋干果当伴手礼。对标天马国际（商务感太重，评4.6）和伊犁河边的营地（风景好但蚊虫+交通不便，评分3.5），尼雅晨曦是这趟旅程最温柔的句号。',
+    vs: [
+      { name: '伊宁天马国际', issue: '商务酒店冷冰冰，最后一晚需要温度而非标准' },
+      { name: '伊犁河营地', issue: '最后一晚还要喂蚊子+打车奔波，太折腾' },
+    ],
+    priceRange: '¥200-300/晚',
+  },
+];
+
+// 住宿甄选数据 - 豪华型（高档酒店/度假村，卫生/服务/便利/特色 4维评分）
+export const HOTEL_LUXURY_DATA = [
+  {
+    day: 1,
+    location: '伊宁市区',
+    hotel: '伊宁天马国际大酒店',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/29a96582-8335-4625-b360-89eaab01a7cc/image_1781592440_1_1.png',
+    scores: { health: 4.8, service: 4.7, location: 4.9, special: 4.6 },
+    reason: '位于伊宁市中心斯大林街，步行5分钟可达喀赞其民俗区，楼下即伊犁美食一条街。2024年全新装修，全屋智能客控，配备金可儿床垫+羽绒枕。对标伊犁宾馆（老牌国宾但设施偏旧，评分4.2）和丽枫酒店（连锁品质稳定但缺乏在地风情，评分4.3），天马在文化融合度上胜出——大堂设有哈萨克刺绣艺术墙和冬不拉演奏区。',
+    vs: [
+      { name: '伊犁宾馆', issue: '国宾级服务但设施偏旧（1990年代装修），无智能客控' },
+      { name: '丽枫酒店（伊宁）', issue: '连锁标准化但千篇一律，缺乏新疆在地文化体验' },
+    ],
+    priceRange: '¥500-700/晚',
+  },
+  {
+    day: 2,
+    location: '赛里木湖景区',
+    hotel: '赛里木湖马龙度假村',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/4ccda9a2-a315-4d34-a94c-66b482230cdd/image_1781596590_1_1.jpg',
+    scores: { health: 4.5, service: 4.6, location: 5.0, special: 4.9 },
+    reason: '赛湖景区内唯一的高端住宿，客房直面湖景，拉开窗帘就是雪山倒映。所有房间配备地暖+加湿器（新疆干燥刚需），独立卫浴干湿分离。对标赛湖房车营地（新奇但空间局促，洗澡水压不稳，评分3.9）和蒙古包体验（情怀满分但卫生条件堪忧，公共厕所，评分3.2），马龙是唯一达到星级酒店标准的选项。早餐有现煮奶茶和包尔萨克。',
+    vs: [
+      { name: '赛湖房车营地', issue: '新奇但空间局促，卫生间狭小，水压不稳' },
+      { name: '赛湖蒙古包', issue: '情怀满分但公共厕所、无独立淋浴、蚊虫多' },
+    ],
+    priceRange: '¥600-900/晚',
+  },
+  {
+    day: 3,
+    location: '霍城县',
+    hotel: '霍城遇见香野民宿（星空房）',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/f2b10fd6-e5aa-4519-b649-b09f6e503ce8/image_1781598082_2_3.jpg',
+    scores: { health: 4.7, service: 4.8, location: 4.7, special: 5.0 },
+    reason: '坐落在薰衣草花海中央的独栋小院，推门即紫色花田。星空房配备全自动天窗，躺在床上即可看银河。老板娘阿依古丽是维吾尔族，亲自做早餐的果酱和玫瑰花馕一绝。对标霍城云宿（网红但隔音差，评分4.1）和65团招待所（便宜但招待所级别，评分2.8），遇见香野在浪漫体验上断层领先。唯一不足是无电梯，但只有2层。',
+    vs: [
+      { name: '霍城云宿', issue: '网红打卡点但房间隔音差，旺季吵闹至深夜' },
+      { name: '65团招待所', issue: '招待所级别，公共洗手间，体验较差' },
+    ],
+    priceRange: '¥500-700/晚',
+  },
+  {
+    day: 4,
+    location: '昭苏县城',
+    hotel: '昭苏天马文化园度假酒店',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/5cee20e1-dc8e-4a1e-b3d0-02310cd3ba21/image_1781596594_2_1.jpg',
+    scores: { health: 4.6, service: 4.5, location: 4.6, special: 4.8 },
+    reason: '新疆唯一以"天马文化"为主题的精品酒店，2023年开业，设施崭新。每间房都有马文化主题设计，窗外可见汗血宝马放牧。配备骑马体验套餐（住客免费1小时）。对标昭苏宾馆（政府招待所转型，服务好但房间无特色，评分4.0）和昭苏草原木屋（有特色但蚊虫+无空调，评分3.5），天马文化园在"特色体验+硬件品质"的平衡上做到最好。',
+    vs: [
+      { name: '昭苏宾馆', issue: '政府招待所转型，服务规矩但房间无特色' },
+      { name: '昭苏草原木屋', issue: '有特色但夏季蚊虫严重、无空调、隔音基本为零' },
+    ],
+    priceRange: '¥450-650/晚',
+  },
+  {
+    day: 5,
+    location: '特克斯县',
+    hotel: '特克斯紫荆花丽呈华廷酒店',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/14df901d-7860-44ab-9416-4e95dd595eb8/image_1781596602_3_1.jpg',
+    scores: { health: 4.9, service: 4.8, location: 4.8, special: 4.5 },
+    reason: '特克斯最高标准酒店，2024年获携程"新疆最佳设计酒店"提名。客房配备TOTO智能马桶+汉斯格雅卫浴，床品为800支埃及棉。距八卦城观景台仅800米，可步行前往。对标八卦城客栈（位置绝佳但楼下是菜市场凌晨4点开始喧闹，评分3.7）和特克斯迎宾馆（新但服务生疏，评分3.9），紫荆花在卫生标准和硬件品质上一骑绝尘。唯一遗憾是没有泳池，但在县城已属天花板。',
+    vs: [
+      { name: '八卦城客栈', issue: '楼下菜市场凌晨4点喧闹，严重影响睡眠' },
+      { name: '特克斯迎宾馆', issue: '新开业但员工培训不足，服务响应慢' },
+    ],
+    priceRange: '¥500-800/晚',
+  },
+  {
+    day: 6,
+    location: '那拉提镇',
+    hotel: '那拉提拈花湾度假村',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/043aafb2-3e5a-41c0-807e-370f36fcdb24/image_1781596603_1_1.jpg',
+    scores: { health: 4.8, service: 4.9, location: 4.8, special: 4.7 },
+    reason: '那拉提景区门口的高端度假村，独栋木屋别墅，私密性极佳。每栋配私人露台直面草原雪山，屋内全实木装修+地暖+壁炉（真火）。服务团队的"管家式服务"是核心竞争力——从接机、行程规划到夜床服务一应俱全。对标那拉提草原大酒店（规模大但团客多嘈杂，评分4.0）和那拉提民宿集群（品质参差不齐，评分3.0-4.5不等），拈花湾在全维度碾压。房费含双人下午茶和晚安甜品。',
+    vs: [
+      { name: '那拉提草原大酒店', issue: '规模大但团客多，大堂嘈杂，早餐排队30分钟' },
+      { name: '那拉提民宿集群', issue: '品质参差不齐，旺季临时涨价、取消订单频发' },
+    ],
+    priceRange: '¥700-1000/晚',
+  },
+  {
+    day: 7,
+    location: '巴音布鲁克',
+    hotel: '巴音布鲁克草原假日大酒店',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/f37b3082-c4ab-4b54-89d2-0e8681e15889/image_1781596604_2_1.jpg',
+    scores: { health: 4.5, service: 4.4, location: 4.8, special: 4.3 },
+    reason: '巴音布鲁克镇上条件最好的酒店。在海拔2500m的草原小镇能有独立卫浴+24小时热水+地暖已是奢侈。酒店自备发电机（草原常断电），这一点在巴音布鲁克至关重要。对标巴音布鲁克蒙古包营地（沉浸式但高原夜间-5°C冻醒是常态，评分3.0）和镇上招待所（卫生状况堪忧，评分2.5），草原假日是唯一"不委屈自己"的选择。注意：巴音布鲁克整体住宿水平受限于地理位置，降低期望。',
+    vs: [
+      { name: '巴音布鲁克蒙古包', issue: '高原夜间-5°C冻醒、公共旱厕、无法洗澡' },
+      { name: '镇上招待所', issue: '床单有异味、隔音为零、热水限时供应' },
+    ],
+    priceRange: '¥500-800/晚',
+  },
+  {
+    day: 8,
+    location: '伊宁市区（返程）',
+    hotel: '伊宁六星街·尼雅晨曦民宿',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/d2e0d348-bb72-4c79-872f-9823414e71e1/image_1781596605_3_1.jpg',
+    scores: { health: 4.7, service: 4.9, location: 5.0, special: 4.8 },
+    reason: '位于伊宁最有格调的街区——六星街，由百年维吾尔庭院改造而成。民宿主人是一对北京来的设计师夫妇，每间房都是独一无二的手工设计。庭院里种满玫瑰和无花果，下午有免费的新疆干果茶歇。对标伊宁天马国际（标准五星但缺人情味，评分4.8）和伊犁河边的营地（风景好但蚊虫+交通不便，评分3.8），尼雅晨曦在"在地人文+居家温度"上独树一帜。最后一晚住这里，是对这趟旅程最温柔的收尾。',
+    vs: [
+      { name: '伊宁天马国际', issue: '标准五星但缺人情味，商务感太重' },
+      { name: '伊犁河营地', issue: '风景好但蚊虫肆虐，距市区远，打车困难' },
+    ],
+    priceRange: '¥220-380/晚',
+  },
+];
+
+export const FOOD_DATA = [
+  {
+    name: '大盘鸡',
+    desc: '鸡肉与土豆在红亮辣油中慢炖至酥烂，宽面铺底吸饱浓汁。一口肉一口面，麻辣鲜香在舌尖炸开，这是新疆人待客的压轴硬菜。',
+    highlight: '辣而不燥 · 肉嫩土豆绵 · 皮带面是灵魂',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/2bff92bb-a28d-46b5-9f72-1291350f5bbb/image_1781598382_1_1.jpg',
+    price: '¥68-98/份',
+    where: '伊宁·儿子娃娃椒麻鸡 / 特克斯·八卦城美食街',
+  },
+  {
+    name: '烤羊肉串',
+    desc: '炭火之上，肥瘦相间的草原羊肉滋滋作响。只撒盐、孜然、辣椒面三样，焦香外皮下是滚烫肉汁——这是新疆街头最野性的美味。',
+    highlight: '炭火现烤 · 只用三味调料 · 肥瘦相间爆汁',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/a8b05d8e-af44-4fa7-bf62-9ecbb3d6d0aa/image_1781598385_1_1.jpg',
+    price: '¥5-8/串',
+    where: '伊宁·汉人街夜市 / 那拉提·草原集市',
+  },
+  {
+    name: '手抓饭',
+    desc: '黄萝卜与羊肉在羊油中慢焖，米粒晶莹剔透如琥珀。大块羊腿肉卧于饭上，油脂浸润每一颗米——这是维吾尔族待客的至高礼遇。',
+    highlight: '羊油焖制 · 米粒如琥珀 · 大块羊腿肉',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/43b086a9-e5e8-4dad-a392-691e1b025e85/image_1781598366_1_3.jpg',
+    price: '¥25-45/份',
+    where: '伊宁·艾勒喀斯尔餐厅 / 昭苏·县城美食街',
+  },
+  {
+    name: '过油肉拌面',
+    desc: '手工拉制的粗面条筋道如弦，浇上羊肉、青红椒、番茄猛火爆炒的浇头。筷子一拌，每条面都挂满油亮酱汁，碳水与肉香的终极碰撞。',
+    highlight: '手工拉面 · 筋道弹牙 · 浇头爆炒镬气足',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/4fe14f8f-d127-4360-b71a-1972fd6bf2ea/image_1781598369_1_1.png',
+    price: '¥20-35/份',
+    where: '伊宁·海尔巴格餐厅 / 霍城·芦草沟镇拌面一条街',
+  },
+  {
+    name: '烤包子（萨木萨）',
+    desc: '馕坑炭火烤出的金黄酥皮，包裹着羊肉丁与洋葱的滚烫内馅。咬开瞬间，酥脆外壳碎裂，浓烈肉汁混合孜然香气直冲鼻腔——早餐来两个配奶茶，一天都精神。',
+    highlight: '馕坑炭烤 · 酥皮掉渣 · 咬开飙汁',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/36a64a1b-4a7c-4d8e-8ad5-cc7a8842ab83/image_1781598373_1_1.jpg',
+    price: '¥3-5/个',
+    where: '伊宁·喀赞其巷口烤包子摊 / 特克斯·早市',
+  },
+  {
+    name: '馕',
+    desc: '面团在馕坑高温下瞬间膨胀，金黄表面布满芝麻与洋葱碎。刚出炉时麦香裹着焦香扑鼻而来，撕一块蘸羊肉汤，是丝绸之路上最古老的碳水味道。',
+    highlight: '馕坑现烤 · 芝麻焦香 · 存放七日不坏',
+    image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/1cf8541d-11c2-4924-bba2-2ed3e2231ecd/image_1781598374_2_1.jpg',
+    price: '¥5-15/个',
+    where: '伊宁·各馕铺随处可见 / 乌鲁木齐·馕文化产业园',
+  },
+];
+
+// ==================== 租车方案数据 ====================
+export const RENTCAR_DATA = {
+  // 一句话总览
+  intro: '伊犁环线全程自驾，租车是大头也是最容易踩坑的一环。伊宁机场有神州、一嗨等连锁门店，本地租车行也很多，车源以油车为主（GL8、普拉多、哈弗、汉兰达等常见）；纯电车型在新疆长途租车市场很少，且草原/独库段补能不便，想租电车务必先打门店电话确认有没有车。具体车型和库存以你下单时 App 或门店实时显示为准。下面把流程拆成"提前订 → 机场取 → 全程开 → 原地还"四步，照着做就行，零经验也不慌。',
+
+  // 4 步流程
+  steps: [
+    {
+      icon: 'fa-mobile-screen-button',
+      step: '第 1 步',
+      title: '出发前 7-10 天网上预订',
+      desc: '在租车 App 上选「伊宁机场取车 + 伊宁机场还车」，按下方推荐车型下单。旺季（7-8月）车少，越早订越便宜，到店没车才是最大的坑。',
+      tips: ['取/还车地点都选「伊宁机场」最省心', '下单时把「不计免赔」「轮胎挡风险」一起勾上', '截图保存订单号和门店电话'],
+    },
+    {
+      icon: 'fa-plane-arrival',
+      step: '第 2 步',
+      title: '下飞机 → 门店取车 → 拍视频验车',
+      desc: '伊宁机场出口就有租车门店班车。带好身份证 + 驾驶证（满 1 年），刷信用卡冻结押金即可提车。提车前务必绕车一圈拍一段完整视频。',
+      tips: ['取车只需「身份证 + 驾驶证」，无需带车', '绕车拍 360° 视频：车身、轮毂、前后杠、挡风玻璃', '确认油量指针位置（满油取就满油还）'],
+    },
+    {
+      icon: 'fa-road',
+      step: '第 3 步',
+      title: '全程自驾，加油看好里程',
+      desc: '环线全程约 1,760km，加 92# 汽油即可。新疆加油站需「人车分离」实名登记，进站排队稍久。山区加油站少，城镇见到加油站先加满。',
+      tips: ['进城镇见加油站先加满，别赌下一个', '加油站需身份证实名登记，司机本人到场', '独库公路段无油站，提前在巩留/那拉提加满'],
+    },
+    {
+      icon: 'fa-circle-check',
+      step: '第 4 步',
+      title: '原地满油还车，秒退押金',
+      desc: '还车前在机场旁加油站加满油，门店验车无新增划痕即可。当面确认无误后，押金一般 1-7 个工作日原路退回。',
+      tips: ['还车前 1 公里内加满油，留好加油小票', '当面验车，让店员确认「无新增剐蹭」', '违章押金会在 15-30 天后无违章自动退'],
+    },
+  ],
+
+  // 车型卡（与方案联动：comfort=GL8，luxury=普拉多）
+  cars: {
+    comfort: {
+      model: '别克 GL8 商务车',
+      tag: '🌿 舒适型推荐',
+      image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/dc5e94a8-bdad-4c83-87dc-f588462ba211/image_1782803490_1_1.jpg',
+      seats: '7 座',
+      pricePerDay: '约 ¥600/天',
+      totalPrice: '8 天 ≈ ¥4,800',
+      trunk: '后备厢大，4 人行李 + 采购无压力',
+      reason: '铺装路面舒适性天花板，第二排独立座椅躺着看风景；伊犁环线 95% 是柏油路，GL8 完全够用，油耗也比越野车低。',
+      pros: ['空间宽敞乘坐舒适', '油耗较低更省钱', '上下车方便适合老人小孩'],
+      cons: '底盘较低，喀拉峻/夏塔个别土路需慢行，不适合深度越野',
+    },
+    luxury: {
+      model: '丰田普拉多 越野车',
+      tag: '👑 豪华型推荐',
+      image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/9f514846-dc61-4859-a3d4-b07b00768692/image_1782804045_3_3.jpg',
+      seats: '5 座',
+      pricePerDay: '约 ¥800/天',
+      totalPrice: '8 天 ≈ ¥6,400',
+      trunk: '后备厢规整，越野通过性强',
+      reason: '高底盘四驱，喀拉峻草原土路、夏塔砂石路、巴音布鲁克草原如履平地；高速稳，烂路猛，颜值在线，拍照出片率高。',
+      pros: ['高底盘四驱通过性强', '烂路砂石路毫无压力', '车身高视野好更安全'],
+      cons: '油耗偏高，5 座行李空间相对紧凑，租金更贵',
+    },
+  },
+
+  // 电车（新能源）方案 —— 作为与油车的对比选项
+  // 说明：不点名某门店一定有某款车（属实时库存，需自行电话确认）；价格为市场参考区间。
+  ev: {
+    title: '电车能不能开？可以，但要会规划',
+    verdict: '⚖️ 适合对比',
+    summary: '伊犁城区充电其实不难——伊宁、昭苏、特克斯、那拉提镇等县城都有快充/慢充，城区慢充低至约 5 毛/度、快充约 9 毛/度，全程电费比油费省一半以上。难点在车源和补能盲区：纯电车型在新疆长途租车市场较少，热门档期需提前打门店电话确认有没有车；独库公路仅乔尔玛、毛溜沟等服务区有桩且车位少，巴音布鲁克、喀拉峻等高海拔草原段更稀疏。结论：想省钱、不介意多花心思规划充电，电车值得一比；图省心、说走就走，油车更稳。',
+    car: {
+      model: '长续航纯电 SUV（如比亚迪唐EV、问界M7纯电等同级，以门店实际车源为准）',
+      tag: '⚡ 新能源对比项',
+      seats: '5-7 座',
+      range: '建议选 CLTC 续航 600km+',
+      pricePerDay: '约 ¥500/天（市场参考）',
+      totalPrice: '8 天 ≈ ¥4,000 + 电费约 ¥700',
+      reason: '若要开电车，优先选续航 600km 以上车型，给草原段空调、爬坡耗电留足余量；底盘比轿车高，应付景区土路也够用。务必下单前电话确认门店是否真有现车。',
+      pros: ['电费约为油费的一半', '安静平顺长途不累', '城区充电网点密集'],
+      cons: '车源少、热门档期可能租不到；独库/草原段桩少，必须提前规划充电',
+    },
+    charging: [
+      { icon: 'fa-city', title: '城区随处可充', desc: '伊宁、昭苏、特克斯、那拉提镇等县城都有快充/慢充站，进城停车顺手补电，e充电/特来电/新电途等 App 可查。' },
+      { icon: 'fa-mountain-sun', title: '独库段补给有限', desc: '乔尔玛、毛溜沟等服务区有充电桩（直流+交流），但车位仅 2-4 个，旺季需错峰，进独库段前务必充满。' },
+      { icon: 'fa-gauge-high', title: '草原段提前充满', desc: '巴音布鲁克、喀拉峻等高海拔草原小镇桩少，空调/爬坡更费电，进山前在最近县城充到 90% 以上。' },
+      { icon: 'fa-phone', title: '租前先打电话', desc: '电车在伊犁长途租车市场属小众车源，App 上未必能搜到，建议直接致电门店确认是否有现车再下单。' },
+    ],
+  },
+
+  // 推荐平台
+  platforms: [
+    { name: '神州租车', badge: '连锁·省心', desc: '伊宁机场有直营店，车况新、流程规范，押金退得快，新手首选。' },
+    { name: '一嗨租车', badge: '连锁·门店多', desc: '伊宁市区 + 机场均有取还点，车型选择多，常有早鸟折扣。' },
+    { name: '携程/飞猪租车', badge: '聚合·比价', desc: '一键比价多家门店，可看真实评价，认准「闪租」「免押」标签更稳。' },
+    { name: '本地车行', badge: '灵活·性价比', desc: '价格可谈、车型多（普拉多、汉兰达、哈弗等常见），但务必签正规合同、查保险，别图便宜踩坑。' },
+  ],
+
+  // 费用与押金
+  cost: {
+    deposit: '车辆押金 ¥5,000-20,000（信用卡预授权冻结，不实扣）',
+    violation: '违章押金 ¥2,000 左右（无违章 15-30 天后退）',
+    oil: '油费约 ¥1,408（1,760km × 约 0.8 元/km，92# 汽油）',
+    extra: '异地还车费、超时费按门店标准，建议「同点取还」规避',
+  },
+
+  // 必买保险（照着勾）
+  insurance: [
+    { name: '基础全险（车损+三者）', must: true, desc: '租车默认包含，保障车辆碰撞和第三方损失，必备底线。' },
+    { name: '不计免赔险', must: true, desc: '强烈建议买！否则出险要自付 20%-30% 维修费，几十块换安心。' },
+    { name: '轮胎 + 挡风玻璃险', must: true, desc: '新疆砂石路多，崩裂玻璃、扎胎概率高，单独不保，必加。' },
+    { name: '驾乘人员意外险', must: false, desc: '保障车上同伴，预算充足可加，几十元/天。' },
+  ],
+
+  // 30 秒验车清单
+  checklist: [
+    '车身四周划痕、凹陷（重点：保险杠、车门下沿）',
+    '四条轮胎 + 备胎花纹、有无鼓包',
+    '前后挡风玻璃有无裂纹、崩点',
+    '油量指针位置（拍照存证，满取满还）',
+    '随车工具：千斤顶、三角警示牌、灭火器',
+    '内饰座椅、中控屏、空调是否正常',
+  ],
+
+  // 避坑红黑榜
+  pitfalls: [
+    { type: 'avoid', text: '低价钓鱼：报价奇低的多半强制搭售保险或还车扣费，认准明码标价。' },
+    { type: 'avoid', text: '油量陷阱：满油取车却被要求满油还，取车时一定拍清油表。' },
+    { type: 'avoid', text: '异地还车：A 地取 B 地还会收高额费用，伊宁机场同点取还最划算。' },
+    { type: 'avoid', text: '超时计费：晚还几小时可能按天收费，规划好航班和还车时间。' },
+    { type: 'ok', text: '正规渠道：优先连锁直营或携程认证门店，合同 + 保险 + 发票齐全。' },
+    { type: 'ok', text: '提前预订：旺季 7-8 月车源紧张，提前 7-10 天锁定车型最稳妥。' },
+  ],
+};

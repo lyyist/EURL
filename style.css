@@ -1,0 +1,856 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+/* ==================== 配色方案（3色统一） ==================== */
+:root {
+  --primary: #1b4332;      /* 主色：深森林绿 */
+  --accent: #d4a574;       /* 强调色：暖金 */
+  --white: #ffffff;         /* 白色 */
+  --primary-soft: #2d6a4f; /* 深绿变体 */
+  --accent-soft: #e8d5b7;  /* 暖金变体 */
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { 
+  font-family: 'Noto Sans SC', sans-serif; 
+  color: var(--gray-800); 
+  background: var(--white); 
+}
+.font-serif { font-family: 'Noto Serif SC', serif; }
+.text-primary { color: var(--primary); }
+.text-accent { color: var(--accent); }
+
+/* ==================== HERO ==================== */
+.hero-section {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  background: linear-gradient(135deg, rgba(27,67,50,0.78) 0%, rgba(27,67,50,0.55) 50%, rgba(0,0,0,0.45) 100%),
+              url('https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/e482a64c-f00d-4786-b49d-017de42fe77b/image_1781600553_2_1.jpg') center/cover no-repeat;
+}
+.hero-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 25%, rgba(0,0,0,0.35) 100%);
+}
+
+/* ==================== TAGS ==================== */
+.tag { 
+  display: inline-block; padding: 6px 16px; border-radius: 9999px;
+  background: rgba(255,255,255,0.18); backdrop-filter: blur(10px);
+  color: #fff; font-size: 14px; border: 1px solid rgba(255,255,255,0.25);
+  transition: all 0.3s;
+}
+.tag:hover { background: rgba(255,255,255,0.32); transform: translateY(-2px); }
+
+/* ==================== SECTION TITLES ==================== */
+.section-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 2rem; font-weight: 900; text-align: center;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+.section-divider {
+  width: 56px; height: 3px; 
+  background: var(--accent);
+  margin: 0 auto 2rem; border-radius: 2px;
+}
+
+/* ==================== CARDS ==================== */
+.card {
+  background: var(--white); border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  transition: all 0.35s ease;
+  overflow: hidden;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+
+/* ==================== DAY CARD - 图片蒙板布局 ==================== */
+.day-card {
+  position: relative;
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 380px;
+  transition: all 0.35s;
+  cursor: default;
+}
+.day-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+
+/* 图片蒙板 - 覆盖整个卡片背景 */
+.day-card-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background-size: cover; background-position: center;
+}
+.day-card-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(27,67,50,0.85) 0%,
+    rgba(27,67,50,0.72) 30%,
+    rgba(27,67,50,0.55) 60%,
+    rgba(0,0,0,0.65) 100%
+  );
+}
+
+/* 内容覆盖在蒙板之上 */
+.day-card-content {
+  position: relative; z-index: 1;
+  padding: 32px 28px;
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: 380px;
+}
+.day-card-content h3 {
+  color: var(--accent);
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.5rem; font-weight: 900;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.day-card-content .desc {
+  color: rgba(255,255,255,0.88);
+  font-size: 0.95rem; line-height: 1.7;
+  max-width: 640px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+.day-card-content .highlight-tag {
+  display: inline-block;
+  padding: 4px 12px; border-radius: 9999px;
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(6px);
+  color: rgba(255,255,255,0.9); font-size: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  margin: 2px;
+}
+.day-card-content .info-row {
+  color: rgba(255,255,255,0.78);
+  font-size: 13px;
+}
+.day-card-content .info-row i { color: var(--accent); margin-right: 4px; }
+
+/* 底部费用条 */
+.day-cost-bar {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  background: rgba(0,0,0,0.18); /* 高透：仅微暗底色，不模糊 */
+  border-radius: 12px; padding: 12px 18px;
+  margin-top: 16px;
+}
+.day-cost-bar .cost-item {
+  text-align: center; min-width: 48px;
+}
+.day-cost-bar .cost-item .label {
+  font-size: 10px; color: rgba(255,255,255,0.6);
+}
+.day-cost-bar .cost-item .value {
+  font-size: 14px; font-weight: 800; color: var(--accent);
+}
+.day-cost-bar .cost-total {
+  margin-left: auto; display: flex; align-items: center; gap: 6px;
+  padding: 6px 16px; border-radius: 8px;
+  background: rgba(212,165,116,0.2); border: 1px solid rgba(212,165,116,0.3);
+}
+.day-cost-bar .cost-total .value {
+  font-size: 18px; font-weight: 900; color: var(--accent);
+}
+
+/* 播放时长标签 */
+.playtime-badge {
+  display: inline-block; padding: 4px 14px; border-radius: 9999px;
+  background: rgba(212,165,116,0.2); color: var(--accent);
+  font-size: 12px; border: 1px solid rgba(212,165,116,0.3);
+  backdrop-filter: blur(6px);
+}
+
+/* ==================== BUDGET TABLE ==================== */
+.budget-card {
+  border: 2px solid transparent;
+  transition: all 0.4s ease;
+}
+.budget-card.active {
+  border-color: var(--primary); 
+  box-shadow: 0 8px 32px rgba(27,67,50,0.18);
+  transform: scale(1.02);
+}
+.budget-card.active .plan-badge {
+  background: var(--primary); color: var(--white);
+}
+.budget-card.lux-active {
+  border-color: var(--accent); 
+  box-shadow: 0 8px 32px rgba(212,165,116,0.25);
+  transform: scale(1.02);
+}
+.budget-card.lux-active .plan-badge {
+  background: var(--accent); color: var(--white);
+}
+.plan-badge {
+  display: inline-block; padding: 4px 14px; border-radius: 9999px;
+  font-size: 13px; font-weight: 500;
+  background: var(--gray-100); color: var(--gray-600);
+  transition: all 0.3s;
+}
+
+/* ==================== NAV ==================== */
+.nav-sticky {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.94); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.nav-link { transition: color 0.25s; }
+.nav-link:hover { color: var(--primary); }
+
+/* ==================== SCROLL ANIMATION ==================== */
+.fade-up {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ==================== SELECT PLAN BTN ==================== */
+.select-plan-btn {
+  padding: 12px 28px; border-radius: 12px; font-weight: 600; font-size: 15px;
+  transition: all 0.35s; cursor: pointer; border: 2px solid transparent;
+}
+.select-plan-btn:hover { transform: translateY(-2px); }
+.select-plan-btn.comfort { background: var(--white); color: var(--primary); border-color: var(--primary); }
+.select-plan-btn.comfort:hover, .select-plan-btn.comfort.selected { background: var(--primary); color: var(--white); }
+.select-plan-btn.luxury { background: var(--white); color: var(--accent); border-color: var(--accent); }
+.select-plan-btn.luxury:hover, .select-plan-btn.luxury.selected { background: var(--accent); color: var(--white); border-color: var(--accent); }
+
+/* ==================== FLIGHT BADGE ==================== */
+.flight-badge {
+  display: inline-flex; align-items: center; gap: 2px;
+  padding: 2px 10px; border-radius: 9999px;
+  font-size: 11px; font-weight: 600;
+}
+.flight-badge-special {
+  background: var(--accent); color: var(--white);
+  animation: badgePulse 2s infinite;
+}
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212,165,116,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(212,165,116,0); }
+}
+
+/* ==================== FOOD CARDS ==================== */
+.food-card {
+  background: var(--white); border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: all 0.35s ease;
+}
+.food-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 32px rgba(27,67,50,0.12);
+}
+.food-img-wrapper {
+  width: 100%; height: 200px; overflow: hidden;
+}
+.food-img-wrapper img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.food-card:hover .food-img-wrapper img {
+  transform: scale(1.08);
+}
+.food-info {
+  padding: 16px 18px 20px;
+}
+.food-name {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.1rem; font-weight: 800; color: var(--primary);
+}
+.food-price {
+  font-size: 13px; font-weight: 700;
+  color: var(--accent);
+  background: rgba(212,165,116,0.12);
+  padding: 2px 10px; border-radius: 999px;
+}
+.food-desc {
+  font-size: 13px; color: var(--gray-600);
+  line-height: 1.7; margin-bottom: 10px;
+}
+.food-highlight {
+  font-size: 12px; color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.food-where {
+  font-size: 12px; color: var(--gray-400);
+  display: flex; align-items: flex-start; gap: 4px;
+}
+.food-where i { color: var(--accent); margin-top: 2px; }
+
+/* ==================== HOTEL DETAIL INLINE (逐日行程内) ==================== */
+.hotel-detail-inline { position: relative; z-index: 3; }
+.hotel-detail-toggle {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 999px;
+  background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.85); font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.3s;
+}
+.hotel-detail-toggle:hover {
+  background: rgba(212,165,116,0.25); border-color: var(--accent); color: var(--accent);
+}
+.hotel-detail-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.45s ease, margin 0.35s ease;
+  margin-top: 0;
+}
+.hotel-detail-inline.expanded .hotel-detail-body {
+  max-height: 600px;
+  margin-top: 10px;
+}
+.hotel-detail-scores {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+  padding: 10px 14px; border-radius: 10px;
+  background: rgba(0,0,0,0.22); backdrop-filter: blur(6px);
+  margin-bottom: 8px;
+}
+.hds-item { text-align: center; }
+.hds-item span:first-child { font-size: 10px; color: rgba(255,255,255,0.6); display: block; margin-bottom: 2px; }
+.hds-bar { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.15); overflow: hidden; margin-bottom: 2px; }
+.hds-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--accent), #f0cf9a); transition: width 0.8s ease; }
+.hds-val { font-size: 11px; font-weight: 800; color: var(--accent); }
+.hotel-detail-reason {
+  padding: 8px 14px; border-radius: 8px;
+  background: rgba(0,0,0,0.18); backdrop-filter: blur(4px);
+  font-size: 11px; color: rgba(255,255,255,0.78); line-height: 1.65; margin-bottom: 6px;
+}
+.hotel-detail-reason b { color: var(--accent); }
+.hotel-detail-vs {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.hds-vs-tag {
+  display: inline-block; padding: 3px 10px; border-radius: 999px;
+  background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.2);
+  font-size: 10px; color: rgba(255,200,200,0.85); backdrop-filter: blur(4px);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .section-title { font-size: 1.5rem; }
+  .day-card { min-height: 420px; }
+  .day-card-content { padding: 24px 16px; }
+  .day-card-content h3 { font-size: 1.2rem; }
+  .day-cost-bar { gap: 10px; padding: 10px 12px; }
+  .budget-card.active, .budget-card.lux-active { transform: scale(1.01); }
+}
+
+/* ==================== MAP INFO WINDOW ==================== */
+.map-info-window {
+  padding: 8px 12px;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+.map-info-window h4 {
+  font-size: 14px; font-weight: 700; color: var(--primary); margin: 0 0 4px;
+}
+.map-info-window p {
+  font-size: 12px; color: var(--gray-500); margin: 0;
+}
+
+/* ==================== MAP FALLBACK ==================== */
+.map-fallback {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 400px;
+  background: linear-gradient(135deg, var(--gray-50), var(--gray-100));
+  border-radius: 12px;
+  flex-direction: column; gap: 12px;
+  color: var(--gray-500); font-size: 14px;
+}
+
+/* ==================== GALLERY OVERLAY ==================== */
+.gallery-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.35s ease;
+  padding: 20px;
+}
+.gallery-overlay.active {
+  background: rgba(0,0,0,0.88);
+  backdrop-filter: blur(12px);
+}
+
+.gallery-panel {
+  width: 100%; max-width: 900px;
+  max-height: 90vh;
+  opacity: 0; transform: translateY(20px) scale(0.96);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex; flex-direction: column; gap: 16px;
+}
+.gallery-overlay.active .gallery-panel {
+  opacity: 1; transform: translateY(0) scale(1);
+}
+
+.gallery-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4px;
+}
+.gallery-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.2rem; font-weight: 900; color: var(--accent);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+.gallery-close {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.25s;
+  backdrop-filter: blur(8px);
+}
+.gallery-close:hover {
+  background: rgba(255,255,255,0.25); transform: rotate(90deg);
+}
+
+.gallery-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  overflow-y: auto; max-height: 65vh;
+  padding-right: 4px;
+}
+.gallery-grid::-webkit-scrollbar { width: 4px; }
+.gallery-grid::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+.gallery-item {
+  border-radius: 12px; overflow: hidden;
+  aspect-ratio: 4/3;
+  opacity: 0; transform: translateY(16px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.gallery-item.visible { opacity: 1; transform: translateY(0); }
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.gallery-item:hover img { transform: scale(1.06); }
+
+.gallery-nav {
+  text-align: center; padding-top: 4px;
+}
+
+/* ==================== GALLERY TRIGGER BTN ==================== */
+.gallery-btn {
+  position: absolute; bottom: 16px; right: 20px; z-index: 2;
+  display: flex; align-items: center;
+  padding: 8px 16px; border-radius: 9999px;
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: all 0.3s;
+}
+.gallery-btn:hover {
+  background: rgba(212,165,116,0.35);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ==================== BUDGET SELECT BAR (卡片内状态条) ==================== */
+.budget-select-bar {
+  width: 100%; margin-top: 16px;
+  padding: 12px 0; border-radius: 12px;
+  font-weight: 700; font-size: 14px; text-align: center;
+  cursor: pointer; transition: all 0.35s;
+  pointer-events: none; /* 由卡片 onclick 接管 */
+}
+.budget-select-bar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* ==================== HOTEL CARDS ==================== */
+.hotel-card {
+  background: var(--white); border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  transition: all 0.35s ease;
+  border: 1px solid rgba(27,67,50,0.06);
+}
+.hotel-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(27,67,50,0.1);
+}
+.hotel-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, #f0fdf4, #fafaf5);
+  border-bottom: 1px solid rgba(27,67,50,0.06);
+}
+.hotel-day-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px; height: 28px; border-radius: 14px;
+  background: var(--primary); color: #fff;
+  font-size: 12px; font-weight: 700;
+}
+.hotel-location {
+  flex: 1; font-size: 14px; font-weight: 600; color: var(--gray-700);
+  display: flex; align-items: center; gap: 4px;
+}
+.hotel-price {
+  font-size: 13px; font-weight: 700; color: var(--accent);
+  background: rgba(212,165,116,0.1);
+  padding: 4px 14px; border-radius: 999px;
+}
+.hotel-body {
+  padding: 0;
+}
+.hotel-img-wrap {
+  position: relative; width: 100%; height: 280px; overflow: hidden;
+}
+.hotel-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.hotel-card:hover .hotel-img-wrap img { transform: scale(1.04); }
+.hotel-img-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 40px 24px 20px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.65));
+}
+
+/* 四维评分 */
+.hotel-scores {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 12px; padding: 20px 24px;
+  background: #fafdfb;
+  border-bottom: 1px solid rgba(27,67,50,0.05);
+}
+.score-item {
+  text-align: center;
+}
+.score-label {
+  font-size: 11px; color: var(--gray-500); margin-bottom: 4px;
+}
+.score-bar {
+  height: 4px; border-radius: 2px; background: var(--gray-200);
+  overflow: hidden; margin-bottom: 3px;
+}
+.score-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width 1s ease;
+}
+.score-val {
+  font-size: 13px; font-weight: 800; color: var(--primary);
+}
+
+.hotel-reason {
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(27,67,50,0.05);
+}
+.hotel-reason-title {
+  font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 6px;
+}
+.hotel-reason p {
+  font-size: 13px; color: var(--gray-600); line-height: 1.75;
+}
+
+.hotel-compare {
+  padding: 16px 24px 20px;
+}
+.hotel-vs-list {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+  margin-top: 8px;
+}
+.hotel-vs-item {
+  background: rgba(239,68,68,0.04); border: 1px solid rgba(239,68,68,0.1);
+  border-radius: 10px; padding: 12px 14px;
+}
+.hotel-vs-name {
+  font-size: 12px; font-weight: 700; color: #dc2626; margin-bottom: 3px;
+}
+.hotel-vs-issue {
+  font-size: 11px; color: var(--gray-500); line-height: 1.5;
+}
+
+/* ==================== HOTEL DETAIL INLINE (逐日行程内) ==================== */
+.hotel-detail-inline { position: relative; z-index: 3; }
+.hotel-detail-toggle {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 999px;
+  background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.85); font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.3s;
+}
+.hotel-detail-toggle:hover {
+  background: rgba(212,165,116,0.25); border-color: var(--accent); color: var(--accent);
+}
+.hotel-detail-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.45s ease, margin 0.35s ease;
+  margin-top: 0;
+}
+.hotel-detail-inline.expanded .hotel-detail-body {
+  max-height: 600px;
+  margin-top: 10px;
+}
+.hotel-detail-scores {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+  padding: 10px 14px; border-radius: 10px;
+  background: rgba(0,0,0,0.22); backdrop-filter: blur(6px);
+  margin-bottom: 8px;
+}
+.hds-item { text-align: center; }
+.hds-item span:first-child { font-size: 10px; color: rgba(255,255,255,0.6); display: block; margin-bottom: 2px; }
+.hds-bar { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.15); overflow: hidden; margin-bottom: 2px; }
+.hds-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--accent), #f0cf9a); transition: width 0.8s ease; }
+.hds-val { font-size: 11px; font-weight: 800; color: var(--accent); }
+.hotel-detail-reason {
+  padding: 8px 14px; border-radius: 8px;
+  background: rgba(0,0,0,0.18); backdrop-filter: blur(4px);
+  font-size: 11px; color: rgba(255,255,255,0.78); line-height: 1.65; margin-bottom: 6px;
+}
+.hotel-detail-reason b { color: var(--accent); }
+.hotel-detail-vs {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.hds-vs-tag {
+  display: inline-block; padding: 3px 10px; border-radius: 999px;
+  background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.2);
+  font-size: 10px; color: rgba(255,200,200,0.85); backdrop-filter: blur(4px);
+}
+
+/* ==================== RENTCAR 租车方案 ==================== */
+.rc-intro {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: linear-gradient(135deg, #f0fdf4, #fafaf5);
+  border: 1px solid rgba(27,67,50,0.1);
+  border-left: 4px solid var(--primary);
+  border-radius: 14px; padding: 18px 22px; margin-bottom: 28px;
+}
+.rc-intro i { color: var(--primary); font-size: 20px; margin-top: 2px; }
+.rc-intro p { font-size: 14px; color: var(--gray-700); line-height: 1.75; }
+
+/* 四步流程 */
+.rc-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  margin-bottom: 32px;
+}
+.rc-step-card {
+  background: var(--white); border-radius: 16px; padding: 22px 18px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  border: 1px solid rgba(27,67,50,0.06);
+  transition: all 0.35s ease;
+  position: relative; overflow: hidden;
+}
+.rc-step-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+.rc-step-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(27,67,50,0.12); }
+.rc-step-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.rc-step-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(27,67,50,0.08); color: var(--primary); font-size: 20px;
+}
+.rc-step-num {
+  font-size: 12px; font-weight: 700; color: var(--accent);
+  background: rgba(212,165,116,0.12); padding: 4px 12px; border-radius: 999px;
+}
+.rc-step-title { font-family: 'Noto Serif SC', serif; font-size: 1.05rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+.rc-step-desc { font-size: 12.5px; color: var(--gray-600); line-height: 1.7; margin-bottom: 12px; }
+.rc-step-tips { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.rc-step-tips li { font-size: 12px; color: var(--gray-500); line-height: 1.5; display: flex; align-items: flex-start; gap: 6px; }
+.rc-step-tips li i { color: var(--primary); font-size: 10px; margin-top: 4px; }
+
+/* 推荐车型卡 */
+.rc-car-card {
+  display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 0;
+  background: var(--white); border-radius: 20px; overflow: hidden;
+  box-shadow: 0 4px 24px rgba(27,67,50,0.08);
+  border: 1px solid rgba(27,67,50,0.06);
+  margin-bottom: 36px;
+}
+.rc-car-img {
+  position: relative; min-height: 280px;
+  background-size: cover; background-position: center;
+}
+.rc-car-tag {
+  position: absolute; top: 16px; left: 16px;
+  background: rgba(0,0,0,0.55); color: #fff; backdrop-filter: blur(6px);
+  padding: 6px 16px; border-radius: 999px; font-size: 13px; font-weight: 600;
+}
+.rc-car-info { padding: 28px 30px; }
+.rc-car-head { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.rc-car-head h3 { font-family: 'Noto Serif SC', serif; font-size: 1.5rem; font-weight: 900; color: var(--primary); }
+.rc-car-price { text-align: right; }
+.rc-car-price-day { display: block; font-size: 1.3rem; font-weight: 900; color: var(--accent); }
+.rc-car-price-total { display: block; font-size: 12px; color: var(--gray-400); }
+.rc-car-specs { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px dashed var(--gray-200); }
+.rc-car-specs span { font-size: 13px; color: var(--gray-600); display: flex; align-items: center; gap: 6px; }
+.rc-car-specs i { color: var(--primary); }
+.rc-car-reason { font-size: 13.5px; color: var(--gray-700); line-height: 1.8; margin-bottom: 14px; }
+.rc-car-reason i { color: var(--accent); margin-right: 4px; }
+.rc-car-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.rc-pro-tag { font-size: 12px; color: var(--primary); background: rgba(27,67,50,0.07); padding: 4px 12px; border-radius: 999px; }
+.rc-car-cons {
+  font-size: 12.5px; color: var(--gray-600); line-height: 1.6;
+  background: rgba(212,165,116,0.1); border-radius: 10px; padding: 10px 14px;
+}
+.rc-car-cons i { color: var(--accent); margin-right: 4px; }
+
+/* 电车（新能源）方案 */
+.rc-ev {
+  border-radius: 20px; overflow: hidden; margin-bottom: 36px;
+  background: var(--white);
+  box-shadow: 0 4px 24px rgba(27,67,50,0.08);
+  border: 1px solid rgba(27,67,50,0.06);
+}
+.rc-ev-banner {
+  position: relative; min-height: 240px;
+  background-size: cover; background-position: center;
+}
+.rc-ev-banner--plain {
+  min-height: 0;
+  background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 55%, #16a34a 100%);
+}
+.rc-ev-banner--plain .rc-ev-banner-mask {
+  position: static; background: none;
+}
+.rc-ev-banner-mask {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(27,67,50,0.35) 0%, rgba(27,67,50,0.82) 100%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 28px 30px;
+}
+.rc-ev-verdict {
+  align-self: flex-start;
+  background: #16a34a; color: #fff;
+  font-size: 12px; font-weight: 700;
+  padding: 4px 14px; border-radius: 999px; margin-bottom: 10px;
+}
+.rc-ev-banner-mask h3 {
+  font-family: 'Noto Serif SC', serif; font-size: 1.5rem; font-weight: 900;
+  color: #fff; margin-bottom: 8px; text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.rc-ev-banner-mask p {
+  font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.8;
+  max-width: 760px; text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.rc-ev-body {
+  display: grid; grid-template-columns: 1fr 1.1fr; gap: 0;
+}
+.rc-ev-car {
+  padding: 26px 28px; border-right: 1px solid rgba(27,67,50,0.06);
+  background: #fafdfb;
+}
+.rc-ev-car-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.rc-ev-car-head .rc-car-tag {
+  position: static; background: rgba(22,163,74,0.12); color: #16a34a;
+  backdrop-filter: none; padding: 4px 14px;
+}
+.rc-ev-car-model { font-family: 'Noto Serif SC', serif; font-size: 1.15rem; font-weight: 800; color: var(--primary); margin-bottom: 12px; }
+.rc-ev-charging {
+  padding: 22px 26px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.rc-ev-charge-item { display: flex; gap: 12px; align-items: flex-start; }
+.rc-ev-charge-icon {
+  flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(22,163,74,0.1); color: #16a34a; font-size: 17px;
+}
+.rc-ev-charge-text { display: flex; flex-direction: column; gap: 3px; }
+.rc-ev-charge-title { font-size: 13.5px; font-weight: 700; color: var(--gray-800); }
+.rc-ev-charge-desc { font-size: 12px; color: var(--gray-500); line-height: 1.65; }
+
+/* 区块小标题 */
+.rc-block-title {
+  font-family: 'Noto Serif SC', serif; font-size: 1.15rem; font-weight: 800;
+  color: var(--primary); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.rc-block-title i { color: var(--accent); }
+
+/* 平台 */
+.rc-platforms { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 36px; }
+.rc-platform-card {
+  background: var(--white); border-radius: 14px; padding: 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05); border: 1px solid rgba(27,67,50,0.06);
+  transition: all 0.3s;
+}
+.rc-platform-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(27,67,50,0.1); }
+.rc-platform-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.rc-platform-name { font-size: 15px; font-weight: 800; color: var(--primary); }
+.rc-platform-badge { font-size: 10px; color: var(--accent); background: rgba(212,165,116,0.12); padding: 3px 9px; border-radius: 999px; }
+.rc-platform-card p { font-size: 12.5px; color: var(--gray-600); line-height: 1.7; }
+
+/* 双栏面板 */
+.rc-two-col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 24px; }
+.rc-panel {
+  background: var(--white); border-radius: 16px; padding: 24px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05); border: 1px solid rgba(27,67,50,0.06);
+}
+
+/* 费用列表 */
+.rc-cost-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.rc-cost-list li { display: flex; flex-direction: column; gap: 3px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-100); }
+.rc-cost-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.rc-cost-key { font-size: 13px; font-weight: 700; color: var(--gray-700); }
+.rc-cost-val { font-size: 12.5px; color: var(--gray-500); line-height: 1.6; }
+
+/* 保险列表 */
+.rc-insurance-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.rc-insurance-list li { display: flex; align-items: flex-start; gap: 12px; }
+.rc-ins-flag { flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; margin-top: 2px; }
+.rc-ins-flag.must { background: rgba(27,67,50,0.1); color: var(--primary); }
+.rc-ins-flag.opt { background: var(--gray-100); color: var(--gray-500); }
+.rc-ins-text { display: flex; flex-direction: column; gap: 2px; }
+.rc-ins-name { font-size: 13.5px; font-weight: 700; color: var(--gray-800); }
+.rc-ins-desc { font-size: 12px; color: var(--gray-500); line-height: 1.6; }
+
+/* 验车清单 */
+.rc-checklist { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.rc-checklist li { font-size: 13px; color: var(--gray-700); line-height: 1.6; display: flex; align-items: flex-start; gap: 9px; }
+.rc-checklist li i { color: var(--primary); font-size: 14px; margin-top: 2px; }
+
+/* 避坑红黑榜 */
+.rc-pitfall-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.rc-pitfall { display: flex; align-items: flex-start; gap: 9px; font-size: 12.5px; line-height: 1.6; padding: 10px 12px; border-radius: 10px; }
+.rc-pitfall.avoid { background: rgba(239,68,68,0.05); color: var(--gray-700); }
+.rc-pitfall.avoid i { color: #dc2626; margin-top: 2px; }
+.rc-pitfall.ok { background: rgba(27,67,50,0.05); color: var(--gray-700); }
+.rc-pitfall.ok i { color: var(--primary); margin-top: 2px; }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .section-title { font-size: 1.5rem; }
+  .day-card { min-height: 420px; }
+  .day-card-content { padding: 24px 16px; }
+  .day-card-content h3 { font-size: 1.2rem; }
+  .day-cost-bar { gap: 10px; padding: 10px 12px; }
+  .budget-card.active, .budget-card.lux-active { transform: scale(1.01); }
+  .gallery-grid { grid-template-columns: 1fr; gap: 10px; }
+  .gallery-panel { max-width: 100%; }
+  .gallery-btn { bottom: 12px; right: 12px; font-size: 12px; padding: 6px 12px; }
+  .hotel-scores { grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 14px 16px; }
+  .hotel-vs-list { grid-template-columns: 1fr; }
+  .hotel-header { flex-wrap: wrap; padding: 14px 16px; }
+  .rc-steps { grid-template-columns: 1fr; }
+  .rc-platforms { grid-template-columns: 1fr; }
+  .rc-car-card { grid-template-columns: 1fr; }
+  .rc-car-img { min-height: 200px; }
+  .rc-car-info { padding: 22px 20px; }
+  .rc-two-col { grid-template-columns: 1fr; }
+  .rc-ev-body { grid-template-columns: 1fr; }
+  .rc-ev-car { border-right: none; border-bottom: 1px solid rgba(27,67,50,0.06); }
+  .rc-ev-charging { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  .rc-steps { grid-template-columns: repeat(2, 1fr); }
+  .rc-platforms { grid-template-columns: repeat(2, 1fr); }
+}

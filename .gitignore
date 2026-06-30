@@ -1,0 +1,11 @@
+ft_local/
+# 工具内部任务记录，无需发布到公开仓库
+.agent/
+
+# 早期实验残留的空目录
+static/
+
+# 系统/编辑器杂项文件
+.DS_Store
+Thumbs.db
+*.log

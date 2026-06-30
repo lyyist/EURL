@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伊犁8日经典小环线 - 旅行攻略</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+  :root {
+    --primary: #2d6a4f;
+    --primary-light: #40916c;
+    --accent: #d4a574;
+    --gold: #e9c46a;
+    --dark: #1b4332;
+    --cream: #fefae0;
+    --light-bg: #f0f7f4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans SC', sans-serif; color: #333; background: #fff; }
+  .font-serif { font-family: 'Noto Serif SC', serif; }
+  
+  /* Hero */
+  .hero-section {
+    background: linear-gradient(135deg, rgba(27,67,50,0.75) 0%, rgba(45,106,79,0.6) 50%, rgba(0,0,0,0.4) 100%),
+                url('https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/3c1f796c-b0ad-4664-886a-b707d5bbd3f1/image_1781593026_2_3.jpg') center/cover no-repeat;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .hero-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.3) 100%);
+  }
+  
+  /* Tags */
+  .tag { 
+    display: inline-block; padding: 6px 16px; border-radius: 9999px;
+    background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);
+    color: #fff; font-size: 14px; border: 1px solid rgba(255,255,255,0.3);
+    transition: all 0.3s;
+  }
+  .tag:hover { background: rgba(255,255,255,0.35); transform: translateY(-2px); }
+  
+  /* Section */
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2.2rem; font-weight: 900; text-align: center;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  .section-divider {
+    width: 60px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--gold));
+    margin: 0 auto 2rem; border-radius: 2px;
+  }
+  
+  /* Cards */
+  .card {
+    background: #fff; border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transition: all 0.35s ease;
+    overflow: hidden;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.12); }
+  
+  /* Day Card */
+  .day-card {
+    border-left: 4px solid var(--primary-light);
+    transition: all 0.3s;
+  }
+  .day-card:hover { border-left-color: var(--accent); }
+  .day-card .day-num {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff; font-weight: 900; font-size: 1.3rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  /* Budget Table */
+  .budget-card {
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+  }
+  .budget-card.active {
+    border-color: var(--primary); 
+    box-shadow: 0 8px 32px rgba(45,106,79,0.2);
+    transform: scale(1.02);
+  }
+  .budget-card.active .plan-badge {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff;
+  }
+  .plan-badge {
+    display: inline-block; padding: 4px 14px; border-radius: 9999px;
+    font-size: 13px; font-weight: 500;
+    background: #e9ecef; color: #666;
+    transition: all 0.3s;
+  }
+  
+  /* Nav */
+  .nav-sticky {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  
+  /* Scroll Animation */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  
+  /* Smooth select btn */
+  .select-plan-btn {
+    padding: 12px 28px; border-radius: 12px; font-weight: 600; font-size: 15px;
+    transition: all 0.35s; cursor: pointer; border: 2px solid transparent;
+  }
+  .select-plan-btn:hover { transform: translateY(-2px); }
+  .select-plan-btn.comfort { background: #fff; color: var(--primary); border-color: var(--primary); }
+  .select-plan-btn.comfort:hover, .select-plan-btn.comfort.selected { background: var(--primary); color: #fff; }
+  .select-plan-btn.luxury { background: #fff; color: #b8860b; border-color: #b8860b; }
+  .select-plan-btn.luxury:hover, .select-plan-btn.luxury.selected { background: linear-gradient(135deg, #b8860b, #daa520); color: #fff; border-color: #b8860b; }
+  
+  /* Tooltip */
+  .tooltip-text {
+    visibility: hidden; opacity: 0; transition: all 0.25s;
+    position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+    background: #333; color: #fff; padding: 6px 12px; border-radius: 8px;
+    font-size: 12px; white-space: nowrap; z-index: 10;
+  }
+  .tooltip-wrap:hover .tooltip-text { visibility: visible; opacity: 1; }
+  
+  @media (max-width: 768px) {
+    .section-title { font-size: 1.6rem; }
+    .budget-card.active { transform: scale(1.01); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== NAV ==================== -->
+<nav class="nav-sticky">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-mountain-sun text-emerald-700 text-xl"></i>
+      <span class="font-serif font-bold text-lg text-emerald-900">伊犁环线</span>
+    </div>
+    <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+      <a href="#overview" class="hover:text-emerald-700 transition-colors">路线概览</a>
+      <a href="#itinerary" class="hover:text-emerald-700 transition-colors">逐日行程</a>
+      <a href="#budget" class="hover:text-emerald-700 transition-colors">费用预算</a>
+      <a href="#tips" class="hover:text-emerald-700 transition-colors">出行贴士</a>
+    </div>
+    <div class="md:hidden">
+      <button id="mobileMenuBtn" class="text-gray-600 p-2"><i class="fa-solid fa-bars text-xl"></i></button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden px-4 pb-3 flex flex-col gap-2 text-sm font-medium text-gray-600">
+    <a href="#overview" class="py-1">路线概览</a>
+    <a href="#itinerary" class="py-1">逐日行程</a>
+    <a href="#budget" class="py-1">费用预算</a>
+    <a href="#tips" class="py-1">出行贴士</a>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero-section relative">
+  <div class="relative z-10 text-center px-4 max-w-4xl">
+    <div class="fade-up" style="transition-delay:0.1s">
+      <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md rounded-full px-5 py-2 mb-8 border border-white/20">
+        <i class="fa-solid fa-location-dot text-amber-300"></i>
+        <span class="text-white/90 text-sm">新疆 · 伊犁哈萨克自治州</span>
+      </div>
+      <h1 class="font-serif text-5xl md:text-7xl font-black text-white mb-6 leading-tight drop-shadow-lg">
+        伊犁8日经典小环线
+      </h1>
+      <p class="text-white/80 text-lg md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
+        伊宁起止 · 不走回头路 · 6-7月薰衣草花期最优<br>
+        武汉 / 东莞 / 深圳三地直飞集结
+      </p>
+      <div class="flex flex-wrap justify-center gap-3 mb-8">
+        <span class="tag"><i class="fa-solid fa-arrows-spin mr-1"></i> 不走回头路</span>
+        <span class="tag"><i class="fa-solid fa-calendar-check mr-1"></i> 6-7月最优</span>
+        <span class="tag"><i class="fa-solid fa-circle-dot mr-1"></i> 伊宁起止</span>
+        <span class="tag"><i class="fa-solid fa-plane-departure mr-1"></i> 多出发地直飞</span>
+      </div>
+      <!-- Weather -->
+      <div class="inline-flex items-center gap-3 bg-white/12 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20">
+        <i class="fa-solid fa-cloud-sun text-amber-300 text-xl"></i>
+        <div class="text-left">
+          <div class="text-white/90 text-sm">伊犁 · 当前天气</div>
+          <div class="text-white font-semibold">多云 35°C / 18°C <span class="text-white/60 text-xs ml-1">东南风微风</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+    <a href="#overview" class="text-white/60 hover:text-white/90 transition-colors text-2xl"><i class="fa-solid fa-chevron-down"></i></a>
+  </div>
+</section>
+
+<!-- ==================== ROUTE OVERVIEW ==================== -->
+<section id="overview" class="py-20 bg-[var(--light-bg)]">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="section-title">环线路线概览</h2>
+    <div class="section-divider"></div>
+    <p class="text-center text-gray-500 mb-8">全程约 1,760 公里 · 累计驾驶约 32 小时 · 顺时针环线</p>
+    
+    <!-- Route Flow -->
+    <div class="hidden md:flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-10 text-xs md:text-sm">
+      <span class="bg-emerald-600 text-white px-3 py-1.5 rounded-full font-semibold whitespace-nowrap">🏁 伊宁</span><i class="fa-solid fa-arrow-right text-emerald-400 text-xs"></i>
+      <span class="bg-blue-500 text-white px-3 py-1.5 rounded-full font-semibold whitespace-nowrap">赛里木湖 165km</span><i class="fa-solid fa-arrow-right text-emerald-400 text-xs"></i>
+      <span class="bg-indigo-500 text-white px-3 py-1.5 rounded-full font-semibold whitespace-nowrap">果子沟 65km</span><i class="fa-solid fa-arrow-right text-emerald-400 text-xs"></i>
+      <span class="bg-purple-500 text-white px-3 py-1.5 rounded-full font-semibold whitespace-nowrap">霍城薰衣草 124km</span><i class="fa-solid fa-arrow-right text-emerald-400 text-xs"></i>
+      <span class="bg-rose-500 text-white px-3 py-1.5 rounded-full font-semibold whitespace-nowrap">昭苏夏塔 319km</span><i class="fa-solid fa-arrow-right text-emerald-400 text-xs"></i>
+      <span class="bg-amber-500 text-white px-3 py-1.5 rounded-full font-semibold whitespace-nowrap">特克斯 139km</span><i class="fa-solid fa-arrow-right text-emerald-400 text-xs"></i>
+      <span class="bg-lime-600 text-white px-3 py-1.5 rounded-full font-semibold whitespace-nowrap">喀拉峻 45km</span><i class="fa-solid fa-arrow-right text-emerald-400 text-xs"></i>
+      <span class="bg-teal-600 text-white px-3 py-1.5 rounded-full font-semibold whitespace-nowrap">那拉提 275km</span><i class="fa-solid fa-arrow-right text-emerald-400 text-xs"></i>
+      <span class="bg-orange-600 text-white px-3 py-1.5 rounded-full font-semibold whitespace-nowrap">巴音布鲁克 142km</span><i class="fa-solid fa-arrow-right text-emerald-400 text-xs"></i>
+      <span class="bg-cyan-600 text-white px-3 py-1.5 rounded-full font-semibold whitespace-nowrap">唐布拉 238km</span><i class="fa-solid fa-arrow-right text-emerald-400 text-xs"></i>
+      <span class="bg-emerald-600 text-white px-3 py-1.5 rounded-full font-semibold whitespace-nowrap">🏁 伊宁 248km</span>
+    </div>
+    
+    <!-- ECharts Map -->
+    <div class="card p-4" style="height: 500px;">
+      <div id="routeMap" style="width:100%; height:100%;"></div>
+    </div>
+
+    <!-- Distance Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mt-6">
+      <div class="card p-3 text-center"><div class="text-xs text-gray-400">伊宁→赛湖</div><div class="font-bold text-emerald-700">165km / 2.5h</div></div>
+      <div class="card p-3 text-center"><div class="text-xs text-gray-400">赛湖→果子沟</div><div class="font-bold text-emerald-700">65km / 1h</div></div>
+      <div class="card p-3 text-center"><div class="text-xs text-gray-400">霍城→夏塔</div><div class="font-bold text-emerald-700">319km / 4.6h</div></div>
+      <div class="card p-3 text-center"><div class="text-xs text-gray-400">喀拉峻→那拉提</div><div class="font-bold text-emerald-700">275km / 5.5h</div></div>
+      <div class="card p-3 text-center"><div class="text-xs text-gray-400">唐布拉→伊宁</div><div class="font-bold text-emerald-700">248km / 3.7h</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ITINERARY ==================== -->
+<section id="itinerary" class="py-20">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="section-title">逐日行程规划</h2>
+    <div class="section-divider"></div>
+    <p id="itineraryPlanLabel" class="text-center text-gray-500 mb-8">请在费用预算区选择方案后，查看对应档次的住宿推荐</p>
+
+    <div id="itineraryContainer" class="space-y-4">
+      <!-- Day cards injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BUDGET ==================== -->
+<section id="budget" class="py-20 bg-[var(--light-bg)]">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="section-title">费用预算对比</h2>
+    <div class="section-divider"></div>
+    <p class="text-center text-gray-500 mb-8">舒适型 vs 豪华型 · 全程直飞不中转</p>
+
+    <!-- Flight Info Card -->
+    <div class="card p-6 mb-8">
+      <h3 class="font-serif font-bold text-lg text-emerald-900 mb-4"><i class="fa-solid fa-plane mr-2"></i>大交通：三地直飞路线（往返）</h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="bg-blue-50 rounded-xl p-4 text-center">
+          <div class="font-bold text-blue-800 mb-1">📍 武汉出发</div>
+          <div class="text-sm text-gray-600">武汉 <i class="fa-solid fa-plane text-blue-500 text-xs"></i> 乌鲁木齐（直飞）</div>
+          <div class="text-sm text-gray-600">乌鲁木齐 <i class="fa-solid fa-plane text-blue-500 text-xs"></i> 伊宁（直飞）</div>
+          <div class="font-bold text-blue-700 mt-2 text-lg">往返约 ¥5,200/人</div>
+          <div class="text-xs text-gray-400">南航CZ3169直飞 约4h+1.3h</div>
+        </div>
+        <div class="bg-green-50 rounded-xl p-4 text-center">
+          <div class="font-bold text-green-800 mb-1">📍 深圳出发</div>
+          <div class="text-sm text-gray-600">深圳 <i class="fa-solid fa-plane text-green-500 text-xs"></i> 乌鲁木齐（直飞）</div>
+          <div class="text-sm text-gray-600">乌鲁木齐 <i class="fa-solid fa-plane text-green-500 text-xs"></i> 伊宁（直飞）</div>
+          <div class="font-bold text-green-700 mt-2 text-lg">往返约 ¥4,600/人</div>
+          <div class="text-xs text-gray-400">南航CZ3911直飞 约5h+1.3h</div>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-4 text-center">
+          <div class="font-bold text-purple-800 mb-1">📍 东莞出发</div>
+          <div class="text-sm text-gray-600">广州 <i class="fa-solid fa-plane text-purple-500 text-xs"></i> 乌鲁木齐（直飞）</div>
+          <div class="text-sm text-gray-600">乌鲁木齐 <i class="fa-solid fa-plane text-purple-500 text-xs"></i> 伊宁（直飞）</div>
+          <div class="font-bold text-purple-700 mt-2 text-lg">往返约 ¥5,200/人</div>
+          <div class="text-xs text-gray-400">南航CZ6886直飞 约5h+1.3h</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Budget Comparison -->
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+      <!-- Comfort Plan -->
+      <div id="comfortCard" class="budget-card active card p-6 relative">
+        <div class="absolute top-4 right-4"><span class="plan-badge">舒适型</span></div>
+        <h3 class="font-serif font-bold text-xl text-emerald-800 mb-5">🌿 舒适型方案</h3>
+        <table class="w-full text-sm">
+          <tbody>
+            <tr class="border-b border-gray-100"><td class="py-2.5 text-gray-500">🚗 租车（8天）</td><td class="py-2.5 font-semibold text-right">别克GL8 商务</td><td class="py-2.5 text-emerald-700 font-bold text-right">¥4,800</td></tr>
+            <tr class="border-b border-gray-100"><td class="py-2.5 text-gray-500">⛽ 油费</td><td class="py-2.5 font-semibold text-right">1,760km × 0.8元</td><td class="py-2.5 text-emerald-700 font-bold text-right">¥1,408</td></tr>
+            <tr class="border-b border-gray-100"><td class="py-2.5 text-gray-500">🛣️ 高速费</td><td class="py-2.5 font-semibold text-right">10段路段汇总</td><td class="py-2.5 text-emerald-700 font-bold text-right">¥262</td></tr>
+            <tr class="border-b border-gray-100"><td class="py-2.5 text-gray-500">🏨 住宿（7晚/间）</td><td class="py-2.5 font-semibold text-right">精品民宿/中档酒店</td><td class="py-2.5 text-emerald-700 font-bold text-right">¥2,800</td></tr>
+            <tr class="border-b border-gray-100"><td class="py-2.5 text-gray-500">🍜 餐饮（8天/人）</td><td class="py-2.5 font-semibold text-right">120元/天</td><td class="py-2.5 text-emerald-700 font-bold text-right">¥960</td></tr>
+            <tr class="border-b border-gray-100"><td class="py-2.5 text-gray-500">🎫 门票（/人）</td><td class="py-2.5 font-semibold text-right">全部景点</td><td class="py-2.5 text-emerald-700 font-bold text-right">¥935</td></tr>
+            <tr><td colspan="3" class="pt-3"></td></tr>
+            <tr class="bg-emerald-50"><td class="py-3 px-2 rounded-l-lg font-bold text-emerald-900">💰 人均总费用</td><td class="py-3 text-xs text-gray-400 text-right">含大交通+分摊</td><td class="py-3 px-2 rounded-r-lg font-black text-emerald-700 text-xl text-right" id="comfortTotal">~¥7,100</td></tr>
+          </tbody>
+        </table>
+        <div class="mt-4 text-xs text-gray-400">
+          * 按4人出行计算：住宿2人/间×7晚，租车/油费/高速人均分摊<br>
+          * 大交通取三地均价约¥5,000/人
+        </div>
+      </div>
+      
+      <!-- Luxury Plan -->
+      <div id="luxuryCard" class="budget-card card p-6 relative">
+        <div class="absolute top-4 right-4"><span class="plan-badge">豪华型</span></div>
+        <h3 class="font-serif font-bold text-xl text-amber-700 mb-5">👑 豪华型方案</h3>
+        <table class="w-full text-sm">
+          <tbody>
+            <tr class="border-b border-gray-100"><td class="py-2.5 text-gray-500">🚗 租车（8天）</td><td class="py-2.5 font-semibold text-right">丰田普拉多越野</td><td class="py-2.5 text-amber-700 font-bold text-right">¥6,400</td></tr>
+            <tr class="border-b border-gray-100"><td class="py-2.5 text-gray-500">⛽ 油费</td><td class="py-2.5 font-semibold text-right">1,760km × 0.8元</td><td class="py-2.5 text-amber-700 font-bold text-right">¥1,408</td></tr>
+            <tr class="border-b border-gray-100"><td class="py-2.5 text-gray-500">🛣️ 高速费</td><td class="py-2.5 font-semibold text-right">10段路段汇总</td><td class="py-2.5 text-amber-700 font-bold text-right">¥262</td></tr>
+            <tr class="border-b border-gray-100"><td class="py-2.5 text-gray-500">🏨 住宿（7晚/间）</td><td class="py-2.5 font-semibold text-right">高星酒店/度假村</td><td class="py-2.5 text-amber-700 font-bold text-right">¥5,250</td></tr>
+            <tr class="border-b border-gray-100"><td class="py-2.5 text-gray-500">🍜 餐饮（8天/人）</td><td class="py-2.5 font-semibold text-right">200元/天</td><td class="py-2.5 text-amber-700 font-bold text-right">¥1,600</td></tr>
+            <tr class="border-b border-gray-100"><td class="py-2.5 text-gray-500">🎫 门票（/人）</td><td class="py-2.5 font-semibold text-right">全部景点</td><td class="py-2.5 text-amber-700 font-bold text-right">¥935</td></tr>
+            <tr><td colspan="3" class="pt-3"></td></tr>
+            <tr class="bg-amber-50"><td class="py-3 px-2 rounded-l-lg font-bold text-amber-900">💰 人均总费用</td><td class="py-3 text-xs text-gray-400 text-right">含大交通+分摊</td><td class="py-3 px-2 rounded-r-lg font-black text-amber-700 text-xl text-right" id="luxuryTotal">~¥9,950</td></tr>
+          </tbody>
+        </table>
+        <div class="mt-4 text-xs text-gray-400">
+          * 按4人出行计算：住宿2人/间×7晚，租车/油费/高速人均分摊<br>
+          * 大交通取三地均价约¥5,000/人
+        </div>
+      </div>
+    </div>
+
+    <!-- Plan Select Buttons -->
+    <div class="flex justify-center gap-4 mb-8">
+      <button id="btnComfort" class="select-plan-btn comfort selected" onclick="selectPlan('comfort')">
+        <i class="fa-solid fa-leaf mr-2"></i>选择舒适型方案
+      </button>
+      <button id="btnLuxury" class="select-plan-btn luxury" onclick="selectPlan('luxury')">
+        <i class="fa-solid fa-crown mr-2"></i>选择豪华型方案
+      </button>
+    </div>
+
+    <!-- Ticket Detail -->
+    <div class="card p-6 mt-8">
+      <h3 class="font-serif font-bold text-lg text-emerald-900 mb-4"><i class="fa-solid fa-ticket mr-2"></i>各景点门票明细</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+        <div class="bg-gray-50 rounded-lg p-3"><span class="font-semibold">赛里木湖</span><br><span class="text-gray-500">¥145（含环湖）</span></div>
+        <div class="bg-gray-50 rounded-lg p-3"><span class="font-semibold">夏塔旅游景区</span><br><span class="text-gray-500">¥80 + 区间车¥60</span></div>
+        <div class="bg-gray-50 rounded-lg p-3"><span class="font-semibold">喀拉峻草原</span><br><span class="text-gray-500">¥275（全域游）</span></div>
+        <div class="bg-gray-50 rounded-lg p-3"><span class="font-semibold">那拉提草原</span><br><span class="text-gray-500">¥135 + 区间车¥60</span></div>
+        <div class="bg-gray-50 rounded-lg p-3"><span class="font-semibold">巴音布鲁克</span><br><span class="text-gray-500">¥140（含区间车）</span></div>
+        <div class="bg-gray-50 rounded-lg p-3"><span class="font-semibold">解忧公主薰衣草园</span><br><span class="text-gray-500">¥40</span></div>
+        <div class="bg-gray-50 rounded-lg p-3"><span class="font-semibold">果子沟大桥</span><br><span class="text-gray-500">免费</span></div>
+        <div class="bg-gray-50 rounded-lg p-3"><span class="font-semibold">唐布拉百里画廊</span><br><span class="text-gray-500">免费</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TIPS ==================== -->
+<section id="tips" class="py-20">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="section-title">出行贴士</h2>
+    <div class="section-divider"></div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card p-6">
+        <div class="text-3xl mb-3">🧳</div>
+        <h3 class="font-serif font-bold text-lg text-emerald-800 mb-3">行前准备</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li>✅ 身份证、驾驶证、边防证（白哈巴等）</li>
+          <li>✅ 防晒霜SPF50+、墨镜、遮阳帽</li>
+          <li>✅ 薄羽绒服/冲锋衣（昼夜温差大）</li>
+          <li>✅ 常用药品：感冒药、肠胃药、晕车药</li>
+          <li>✅ 充电宝、相机、备用存储卡</li>
+          <li>✅ 保湿护肤品（新疆气候干燥）</li>
+        </ul>
+      </div>
+      <div class="card p-6">
+        <div class="text-3xl mb-3">⚠️</div>
+        <h3 class="font-serif font-bold text-lg text-emerald-800 mb-3">途中注意</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li>🔸 独库公路每年6月初开放，提前确认路况</li>
+          <li>🔸 巴音布鲁克海拔约2500m，注意高反</li>
+          <li>🔸 部分路段无信号，提前下载离线地图</li>
+          <li>🔸 加油站在城镇加满，山区加油站较少</li>
+          <li>🔸 尊重少数民族风俗习惯</li>
+          <li>🔸 新疆安检较多，随身携带身份证</li>
+        </ul>
+      </div>
+      <div class="card p-6">
+        <div class="text-3xl mb-3">🍖</div>
+        <h3 class="font-serif font-bold text-lg text-emerald-800 mb-3">美食推荐</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li>🔥 烤羊肉串 — 新疆必吃，肉质鲜嫩</li>
+          <li>🔥 大盘鸡 — 土豆和鸡肉的绝妙搭配</li>
+          <li>🔥 手抓饭 — 胡萝卜与羊肉的香糯米饭</li>
+          <li>🔥 拌面（拉条子） — 劲道手工面条</li>
+          <li>🔥 馕 — 新疆主食，可搭配各种菜肴</li>
+          <li>🔥 酸奶/马奶子 — 特色发酵饮品</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="py-8 bg-gray-900 text-center">
+  <p class="text-gray-400 text-sm mb-2">新疆伊犁8日经典小环线 · 不走回头路</p>
+  <p>由 <a href="https://with.woa.com/" style="color: #8A2BE2;" target="_blank">With</a> 通过自然语言生成</p>
+</footer>
+
+<script>
+// ==================== MOBILE MENU ====================
+document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('hidden');
+});
+
+// ==================== SCROLL ANIMATION ====================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ==================== PLAN SELECTION ====================
+let currentPlan = 'comfort';
+
+window.selectPlan = function(plan) {
+  currentPlan = plan;
+  const comfortCard = document.getElementById('comfortCard');
+  const luxuryCard = document.getElementById('luxuryCard');
+  const btnComfort = document.getElementById('btnComfort');
+  const btnLuxury = document.getElementById('btnLuxury');
+  const labelEl = document.getElementById('itineraryPlanLabel');
+  
+  if (plan === 'comfort') {
+    comfortCard.classList.add('active');
+    luxuryCard.classList.remove('active');
+    btnComfort.classList.add('selected');
+    btnLuxury.classList.remove('selected');
+    labelEl.textContent = '🌿 当前：舒适型方案 — 精品民宿+GL8商务车+人均¥120/天餐饮';
+    labelEl.className = 'text-center text-emerald-700 font-medium mb-8';
+  } else {
+    luxuryCard.classList.add('active');
+    comfortCard.classList.remove('active');
+    btnLuxury.classList.add('selected');
+    btnComfort.classList.remove('selected');
+    labelEl.textContent = '👑 当前：豪华型方案 — 度假村酒店+普拉多越野+人均¥200/天餐饮';
+    labelEl.className = 'text-center text-amber-700 font-medium mb-8';
+  }
+  
+  renderItinerary();
+  window.scrollTo({ top: document.getElementById('itinerary').offsetTop - 80, behavior: 'smooth' });
+};
+
+// ==================== ITINERARY DATA ====================
+const itineraryData = [
+  { day: 1, title: '伊宁集合 · 初探蓝色喀赞其', image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/29a96582-8335-4625-b360-89eaab01a7cc/image_1781592440_1_1.png', desc: '三地朋友分别直飞乌鲁木齐再转伊宁集结。下午漫步伊宁喀赞其民俗区，蓝色街道拍照打卡，品尝地道新疆美食。', highlight: '伊宁喀赞其民俗区 | 伊犁河大桥日落', playTime: '半天', drive: '', 
+    comfortHotel: '伊宁六星街·尼雅晨曦民宿 ¥200-300/晚', luxuryHotel: '伊宁天马大酒店 ¥500-700/晚' },
+  { day: 2, title: '赛里木湖 · 大西洋最后一滴眼泪', image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/3c1f796c-b0ad-4664-886a-b707d5bbd3f1/image_1781593026_2_3.jpg', desc: '从伊宁出发驱车约165km前往赛里木湖。环湖自驾，欣赏雪山倒映湖中的绝美景色，寻找天鹅身影。傍晚可住赛湖附近。', highlight: '环湖自驾 | 天鹅观赏 | 点将台全景 | 果子沟大桥', playTime: '全天', drive: '伊宁→赛湖 165km/2.5h',
+    comfortHotel: '赛湖蒙古包/博乐经济酒店 ¥200-350/晚', luxuryHotel: '赛里木湖马龙度假村 ¥600-900/晚' },
+  { day: 3, title: '霍城薰衣草 · 紫色花海漫游', image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/53dc49a2-1e3f-498b-ae6e-7b3c9b16d03f/image_1781593034_2_1.jpg', desc: '6-7月正值薰衣草花期！前往霍城解忧公主薰衣草园和晃晃村，置身紫色花海，拍出绝美照片。', highlight: '解忧公主薰衣草园 | 晃晃村花海 | 65团薰衣草基地', playTime: '大半天', drive: '赛湖→霍城 124km/1.7h',
+    comfortHotel: '霍城晃晃人间民宿 ¥200-300/晚', luxuryHotel: '霍城遇见香野民宿(星空房) ¥500-700/晚' },
+  { day: 4, title: '昭苏夏塔 · 雪山草原秘境', image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/6da2bfce-1192-48eb-b3bb-7d624c572a69/image_1781593032_2_1.jpg', desc: '长途驱车前往夏塔古道，雪山、冰川、草原与野花交织成画。乘坐区间车深入峡谷，徒步近距离欣赏木扎尔特冰川。', highlight: '夏塔峡谷徒步 | 木扎尔特冰川 | 天马浴河表演', playTime: '全天', drive: '霍城→夏塔 319km/4.6h',
+    comfortHotel: '昭苏县城经济酒店 ¥150-250/晚', luxuryHotel: '昭苏天马文化园民宿 ¥450-650/晚' },
+  { day: 5, title: '特克斯八卦城 & 喀拉峻草原', image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/28c6b9dd-2544-436e-91d8-ded9887b7f8b/image_1781592419_1_3.jpg', desc: '上午游览世界唯一的八卦城特克斯，登观景台俯瞰全城。下午前往喀拉峻大草原，欣赏"人体草原"独特曲线，漫步五花草甸。', highlight: '八卦城全景 | 喀拉峻人体草原 | 猎鹰台 | 五花草甸', playTime: '全天', drive: '夏塔→特克斯 139km/2.4h →喀拉峻 45km/1.2h',
+    comfortHotel: '特克斯八卦城民宿 ¥180-300/晚', luxuryHotel: '特克斯紫荆花丽呈华廷酒店 ¥500-800/晚' },
+  { day: 6, title: '那拉提空中草原 · 野花与雪山', image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/9800d873-75c2-45d7-9208-b2f4f14b5d1a/image_1781593029_2_3.jpg', desc: '驱车前往那拉提草原，这里被称为"空中草原"。夏季野花遍地，雪山环绕，可骑马驰骋草原，感受哈萨克族风情。', highlight: '空中草原 | 游牧人家 | 骑马体验 | 天界台观景', playTime: '全天', drive: '喀拉峻→那拉提 275km/5.5h',
+    comfortHotel: '那拉提草原大酒店 ¥250-400/晚', luxuryHotel: '那拉提拈花湾度假村 ¥700-1000/晚' },
+  { day: 7, title: '巴音布鲁克 · 九曲十八弯日落', image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/9ccbf582-8221-4b49-a986-b69d2c866de0/image_1781593037_1_1.png', desc: '沿独库公路中段前往巴音布鲁克大草原。下午进入景区，傍晚在九曲十八弯等待震撼日落——运气好能看到"九个太阳"奇观。', highlight: '九曲十八弯日落 | 天鹅湖 | 独库公路中段风光', playTime: '全天', drive: '那拉提→巴音布鲁克 142km/3.8h',
+    comfortHotel: '巴音布鲁克蒙古包 ¥200-350/晚', luxuryHotel: '巴音布鲁克草原假日大酒店 ¥500-800/晚' },
+  { day: 8, title: '独库北段返程 · 唐布拉百里画廊', image: 'https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/c4d0b51f-648f-4051-b348-f265c8e9b637/image_1781592428_2_1.png', desc: '穿越独库公路北段精华，沿途欣赏唐布拉百里画廊——雪山、河流、草原与森林组成130公里的天然画卷。下午返回伊宁，结束完美环线之旅。', highlight: '独库公路北段 | 唐布拉百里画廊 | 乔尔玛烈士陵园', playTime: '全天', drive: '巴音布鲁克→唐布拉 238km/5.4h →伊宁 248km/3.7h',
+    comfortHotel: '伊宁六星街黎光里民宿 ¥220-380/晚', luxuryHotel: '伊宁天马大酒店 ¥500-700/晚' },
+];
+
+function renderItinerary() {
+  const container = document.getElementById('itineraryContainer');
+  container.innerHTML = itineraryData.map((d, i) => `
+    <div class="day-card card p-5 flex flex-col md:flex-row gap-5 cursor-pointer fade-up" onclick="toggleDayDetail(${i})" style="animation-delay:${i*0.05}s">
+      <div class="day-num">${d.day}</div>
+      <div class="flex-1">
+        <div class="flex items-start justify-between flex-wrap gap-2">
+          <h3 class="font-serif font-bold text-lg text-gray-800">Day ${d.day}：${d.title}</h3>
+          <span class="text-xs bg-emerald-50 text-emerald-700 px-2 py-1 rounded-full whitespace-nowrap">🕐 ${d.playTime}</span>
+        </div>
+        <p class="text-sm text-gray-600 mt-2 leading-relaxed">${d.desc}</p>
+        <div class="flex flex-wrap gap-2 mt-2 text-xs">
+          ${d.highlight.split('|').map(h => `<span class="bg-amber-50 text-amber-700 px-2 py-0.5 rounded-full">✨ ${h.trim()}</span>`).join('')}
+        </div>
+        <div class="mt-3 p-3 bg-gray-50 rounded-lg">
+          <div class="text-xs text-gray-500">${d.drive ? '🚗 ' + d.drive : '📍 伊宁市区游玩'}</div>
+          <div class="text-xs mt-1 ${currentPlan==='comfort'?'text-emerald-600':'text-amber-600'}">
+            🏨 住宿：${currentPlan === 'comfort' ? d.comfortHotel : d.luxuryHotel}
+          </div>
+        </div>
+        <div id="dayDetail${i}" class="hidden mt-3 pt-3 border-t border-gray-100">
+          <div class="grid grid-cols-2 gap-2 text-xs text-gray-500">
+            <div>🍜 ${currentPlan==='comfort'?'拌面/抓饭/烤肉 人均¥40-60':'特色新疆餐厅 人均¥80-120'}</div>
+            <div>📸 最佳拍照时间：${['','下午4-6点金色光线','清晨或傍晚','上午9-11点花海最美','下午光线最佳','上午+傍晚','中午至下午','日落前1小时','全天'][i]}</div>
+          </div>
+        </div>
+      </div>
+      <div class="md:w-40 h-28 md:h-32 flex-shrink-0 rounded-xl overflow-hidden">
+        <img src="${d.image}" alt="Day ${d.day}" class="w-full h-full object-cover" loading="lazy" onerror="this.style.display='none'">
+      </div>
+    </div>
+  `).join('');
+  
+  // re-observe new elements
+  document.querySelectorAll('#itineraryContainer .fade-up').forEach(el => observer.observe(el));
+}
+
+window.toggleDayDetail = function(idx) {
+  const el = document.getElementById('dayDetail' + idx);
+  if (el) el.classList.toggle('hidden');
+};
+
+// ==================== ECHARTS MAP ====================
+function initMap() {
+  const chart = echarts.init(document.getElementById('routeMap'));
+  const points = [
+    { name: '伊宁', coord: [81.277, 43.908], day: 'D0/D8' },
+    { name: '赛里木湖', coord: [81.175, 44.605], day: 'D1' },
+    { name: '果子沟', coord: [81.143, 44.472], day: 'D1' },
+    { name: '霍城薰衣草', coord: [80.757, 44.170], day: 'D2' },
+    { name: '夏塔', coord: [80.588, 42.669], day: 'D3' },
+    { name: '特克斯', coord: [81.840, 43.215], day: 'D4' },
+    { name: '喀拉峻', coord: [82.148, 43.060], day: 'D4' },
+    { name: '那拉提', coord: [84.023, 43.240], day: 'D5' },
+    { name: '巴音布鲁克', coord: [84.433, 42.764], day: 'D6' },
+    { name: '唐布拉', coord: [83.903, 43.717], day: 'D7' },
+  ];
+
+  const option = {
+    tooltip: {
+      trigger: 'item',
+      formatter: (p) => p.name === 'route' ? '' : `<b>${p.name}</b><br/>坐标: (${p.data.coord[0].toFixed(2)}, ${p.data.coord[1].toFixed(2)})<br/>${p.data.day}`,
+    },
+    grid: { top: 20, right: 30, bottom: 30, left: 50 },
+    xAxis: { type: 'value', show: false, min: 79.5, max: 85 },
+    yAxis: { type: 'value', show: false, min: 42, max: 45.5 },
+    series: [
+      {
+        type: 'lines', coordinateSystem: 'cartesian2d', polyline: true,
+        lineStyle: { color: '#2d6a4f', width: 3, curveness: 0.2, opacity: 0.8 },
+        effect: { show: true, period: 5, trailLength: 0.2, symbolSize: 6, color: '#e9c46a' },
+        data: [{ coords: points.map(p => p.coord) }],
+        name: 'route',
+      },
+      {
+        type: 'scatter', coordinateSystem: 'cartesian2d',
+        symbolSize: (val, params) => params.dataIndex === 0 ? 20 : 14,
+        itemStyle: { color: (p) => p.dataIndex === 0 ? '#2d6a4f' : p.dataIndex === points.length - 1 ? '#2d6a4f' : '#40916c', borderColor: '#fff', borderWidth: 2 },
+        label: { show: true, formatter: '{b}', position: 'right', fontSize: 11, color: '#333', fontWeight: 'bold' },
+        data: points,
+      },
+    ],
+  };
+  chart.setOption(option);
+  window.addEventListener('resize', () => chart.resize());
+}
+
+// Initialize
+renderItinerary();
+initMap();
+</script>
+</body>
+</html>
