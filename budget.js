@@ -58,8 +58,20 @@ function renderBudgetComparison() {
     const d = p.data;
     const isActive = p.key === currentPlan;
     const avgFlight = 4000;
+    
+    // 10大2小分摊计算：
+    // - 租车、油费、高速费：按10个大人分摊（2辆车）
+    // - 住宿：5间房，按10个大人分摊（小孩不单独计算）
+    // - 餐饮：大人120/200元，小孩60/100元
+    // - 门票：小孩半价
     const totalPerPerson = Math.round(
-      avgFlight + d.rentCar.price / 4 + d.oil.price / 4 + d.highway.price / 4 + d.hotel.pricePerPerson + d.food.price + d.tickets.price
+      avgFlight + 
+      d.rentCar.price / 10 + 
+      d.oil.price / 10 + 
+      d.highway.price / 10 + 
+      d.hotel.pricePerPerson + 
+      d.food.price + 
+      d.tickets.price
     );
 
     return `
@@ -71,48 +83,49 @@ function renderBudgetComparison() {
             <tr class="border-b" style="border-color:var(--gray-100)">
               <td class="py-2.5" style="color:var(--gray-500)">🚗 租车（8天）</td>
               <td class="py-2.5 font-semibold text-right">${d.rentCar.model}</td>
-              <td class="py-2.5 font-bold text-right" style="color:${p.textColor}">¥${d.rentCar.price.toLocaleString()}</td>
+              <td class="py-2.5 font-bold text-right" style="color:${p.textColor}">每人 ¥${Math.round(d.rentCar.price / 10).toLocaleString()}</td>
             </tr>
             <tr class="border-b" style="border-color:var(--gray-100)">
-              <td class="py-2.5" style="color:var(--gray-500)">⛽ 油费</td>
-              <td class="py-2.5 font-semibold text-right">${d.oil.desc}</td>
+              <td class="py-2.5" style="color:var(--gray-500)">⛽ 油费（2辆车全程）</td>
+              <td class="py-2.5 font-semibold text-right">1,760km × ¥0.8/km × 2辆</td>
               <td class="py-2.5 font-bold text-right" style="color:${p.textColor}">¥${d.oil.price.toLocaleString()}</td>
             </tr>
             <tr class="border-b" style="border-color:var(--gray-100)">
-              <td class="py-2.5" style="color:var(--gray-500)">🛣️ 高速费</td>
-              <td class="py-2.5 font-semibold text-right">${d.highway.desc}</td>
+              <td class="py-2.5" style="color:var(--gray-500)">🛣️ 高速费（2辆车全程）</td>
+              <td class="py-2.5 font-semibold text-right">环线10段路段合计</td>
               <td class="py-2.5 font-bold text-right" style="color:${p.textColor}">¥${d.highway.price.toLocaleString()}</td>
             </tr>
             <tr class="border-b" style="border-color:var(--gray-100)">
-              <td class="py-2.5" style="color:var(--gray-500)">🏨 住宿（7晚/间）</td>
-              <td class="py-2.5 font-semibold text-right">${d.hotel.desc}</td>
-              <td class="py-2.5 font-bold text-right" style="color:${p.textColor}">¥${d.hotel.pricePerRoom.toLocaleString()}</td>
+              <td class="py-2.5" style="color:var(--gray-500)">🏨 住宿（2人/间 × 7晚）</td>
+              <td class="py-2.5 font-semibold text-right">${d.hotel.note}</td>
+              <td class="py-2.5 font-bold text-right" style="color:${p.textColor}">每人 ¥${d.hotel.pricePerPerson.toLocaleString()}</td>
             </tr>
             <tr class="border-b" style="border-color:var(--gray-100)">
-              <td class="py-2.5" style="color:var(--gray-500)">🍜 餐饮（8天/人）</td>
+              <td class="py-2.5" style="color:var(--gray-500)">🍜 餐饮（8天）</td>
               <td class="py-2.5 font-semibold text-right">${d.food.desc}</td>
-              <td class="py-2.5 font-bold text-right" style="color:${p.textColor}">¥${d.food.price.toLocaleString()}</td>
+              <td class="py-2.5 font-bold text-right" style="color:${p.textColor}">每人 ¥${d.food.price.toLocaleString()}</td>
             </tr>
             <tr class="border-b" style="border-color:var(--gray-100)">
-              <td class="py-2.5" style="color:var(--gray-500)">✈️ 大交通（往返/人）</td>
+              <td class="py-2.5" style="color:var(--gray-500)">✈️ 大交通（往返）</td>
               <td class="py-2.5 font-semibold text-right">三地直飞均价</td>
-              <td class="py-2.5 font-bold text-right" style="color:${p.textColor}">~¥${avgFlight.toLocaleString()}</td>
+              <td class="py-2.5 font-bold text-right" style="color:${p.textColor}">每人 ~¥${avgFlight.toLocaleString()}</td>
             </tr>
             <tr class="border-b" style="border-color:var(--gray-100)">
-              <td class="py-2.5" style="color:var(--gray-500)">🎫 门票（/人）</td>
+              <td class="py-2.5" style="color:var(--gray-500)">🎫 门票</td>
               <td class="py-2.5 font-semibold text-right">${d.tickets.desc}</td>
-              <td class="py-2.5 font-bold text-right" style="color:${p.textColor}">¥${d.tickets.price.toLocaleString()}</td>
+              <td class="py-2.5 font-bold text-right" style="color:${p.textColor}">每人 ¥${d.tickets.price.toLocaleString()}</td>
             </tr>
             <tr><td colspan="3" class="pt-3"></td></tr>
             <tr style="background:${p.bgColor}">
-              <td class="py-3 px-2 rounded-l-lg font-bold" style="color:${p.textColor}">💰 人均总费用</td>
-              <td class="py-3 text-xs text-right" style="color:var(--gray-400)">按4人出行计算</td>
+              <td class="py-3 px-2 rounded-l-lg font-bold" style="color:${p.textColor}">💰 每人总费用</td>
+              <td class="py-3 text-xs text-right" style="color:var(--gray-400)">10大人 + 2小孩</td>
               <td class="py-3 px-2 rounded-r-lg font-black text-xl text-right" style="color:${p.textColor}">~¥${totalPerPerson.toLocaleString()}</td>
             </tr>
           </tbody>
         </table>
         <div class="mt-4 text-xs" style="color:var(--gray-400)">
-          * 按4人出行计算：住宿2人/间×7晚，租车/油费/高速人均分摊
+          * 2辆7座车，2人住1间房，共5间；小孩随父母同住不加床<br>
+          * 小孩费用另计：餐饮约¥60/天 + 门票半价约¥468 + 机票另询
         </div>
         <!-- 状态条：点击卡片任意位置即可选中方案 -->
         <div class="budget-select-bar ${isActive ? 'selected' : ''}" style="background:${isActive ? p.btnBg : p.bgColor};color:${isActive ? '#fff' : p.textColor};border:2px solid ${p.textColor}">

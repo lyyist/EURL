@@ -1,4 +1,3 @@
-ft_local/
 # 工具内部任务记录，无需发布到公开仓库
 .agent/
 
@@ -9,3 +8,5 @@ static/
 .DS_Store
 Thumbs.db
 *.log
+
+ft_local/

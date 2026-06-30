@@ -7,15 +7,15 @@ export function setObserver(obs) { observer = obs; }
 
 function calcDayCost(d, plan) {
   const bd = plan === 'comfort' ? BUDGET_DATA.comfort : BUDGET_DATA.luxury;
-  const hotelPerNight = Math.round(bd.hotel.pricePerRoom / 7);
+  const hotelPerNight = Math.round(bd.hotel.pricePerPerson / 7); // 人均每晚
   const foodPerDay = plan === 'comfort' ? 120 : 200;
-  const rentPerDay = Math.round(bd.rentCar.price / 4 / 8);
-  const oilPerDay = Math.round(bd.oil.price / 4 / 8);
-  const tollPerDay = Math.round(bd.highway.price / 4 / 8);
+  const rentPerDay = Math.round(bd.rentCar.price / 10 / 8); // 10大人分摊
+  const oilPerDay = Math.round(bd.oil.price / 10 / 8);
+  const tollPerDay = Math.round(bd.highway.price / 10 / 8);
   const ticketDay = d.ticketsPrice || 0;
-  const dayTotal = Math.round(hotelPerNight/2) + foodPerDay + rentPerDay + oilPerDay + tollPerDay + ticketDay;
+  const dayTotal = hotelPerNight + foodPerDay + rentPerDay + oilPerDay + tollPerDay + ticketDay;
   return {
-    hotel: Math.round(hotelPerNight/2),
+    hotel: hotelPerNight,
     food: foodPerDay,
     rent: rentPerDay,
     oil: oilPerDay,
