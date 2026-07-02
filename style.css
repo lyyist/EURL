@@ -34,12 +34,12 @@ body {
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
   position: relative;
-  background: linear-gradient(135deg, rgba(27,67,50,0.78) 0%, rgba(27,67,50,0.55) 50%, rgba(0,0,0,0.45) 100%),
-              url('https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/e482a64c-f00d-4786-b49d-017de42fe77b/image_1781600553_2_1.jpg') center/cover no-repeat;
+  background: linear-gradient(135deg, rgba(27,67,50,0.32) 0%, rgba(27,67,50,0.18) 50%, rgba(0,0,0,0.22) 100%),
+              url('https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/3aac9d93-396e-4593-89e5-b302735e5346/image_1782978792_1_1.jpg') center/cover no-repeat;
 }
 .hero-section::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at center, transparent 25%, rgba(0,0,0,0.35) 100%);
+  background: none;
 }
 
 /* ==================== TAGS ==================== */
@@ -251,7 +251,7 @@ body {
   box-shadow: 0 10px 32px rgba(27,67,50,0.12);
 }
 .food-img-wrapper {
-  width: 100%; height: 200px; overflow: hidden;
+  width: 100%; height: 170px; overflow: hidden;
 }
 .food-img-wrapper img {
   width: 100%; height: 100%; object-fit: cover;
@@ -261,7 +261,7 @@ body {
   transform: scale(1.08);
 }
 .food-info {
-  padding: 16px 18px 20px;
+  padding: 14px 16px 16px;
 }
 .food-name {
   font-family: 'Noto Serif SC', serif;
@@ -483,7 +483,7 @@ body {
 }
 .hotel-header {
   display: flex; align-items: center; gap: 12px;
-  padding: 18px 24px;
+  padding: 14px 20px;
   background: linear-gradient(135deg, #f0fdf4, #fafaf5);
   border-bottom: 1px solid rgba(27,67,50,0.06);
 }
@@ -506,7 +506,7 @@ body {
   padding: 0;
 }
 .hotel-img-wrap {
-  position: relative; width: 100%; height: 280px; overflow: hidden;
+  position: relative; width: 100%; height: 220px; overflow: hidden;
 }
 .hotel-img-wrap img {
   width: 100%; height: 100%; object-fit: cover;
@@ -522,7 +522,7 @@ body {
 /* 四维评分 */
 .hotel-scores {
   display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 12px; padding: 20px 24px;
+  gap: 10px; padding: 14px 20px;
   background: #fafdfb;
   border-bottom: 1px solid rgba(27,67,50,0.05);
 }
@@ -546,7 +546,7 @@ body {
 }
 
 .hotel-reason {
-  padding: 18px 24px;
+  padding: 14px 20px;
   border-bottom: 1px solid rgba(27,67,50,0.05);
 }
 .hotel-reason-title {
@@ -557,7 +557,7 @@ body {
 }
 
 .hotel-compare {
-  padding: 16px 24px 20px;
+  padding: 12px 20px 16px;
 }
 .hotel-vs-list {
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
@@ -628,15 +628,15 @@ body {
   background: linear-gradient(135deg, #f0fdf4, #fafaf5);
   border: 1px solid rgba(27,67,50,0.1);
   border-left: 4px solid var(--primary);
-  border-radius: 14px; padding: 18px 22px; margin-bottom: 28px;
+  border-radius: 14px; padding: 16px 20px; margin-bottom: 20px;
 }
 .rc-intro i { color: var(--primary); font-size: 20px; margin-top: 2px; }
 .rc-intro p { font-size: 14px; color: var(--gray-700); line-height: 1.75; }
 
 /* 四步流程 */
 .rc-steps {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-  margin-bottom: 32px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+  margin-bottom: 24px;
 }
 .rc-step-card {
   background: var(--white); border-radius: 16px; padding: 22px 18px;
@@ -672,10 +672,10 @@ body {
   background: var(--white); border-radius: 20px; overflow: hidden;
   box-shadow: 0 4px 24px rgba(27,67,50,0.08);
   border: 1px solid rgba(27,67,50,0.06);
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 }
 .rc-car-img {
-  position: relative; min-height: 280px;
+  position: relative; min-height: 220px;
   background-size: cover; background-position: center;
 }
 .rc-car-tag {
@@ -683,7 +683,7 @@ body {
   background: rgba(0,0,0,0.55); color: #fff; backdrop-filter: blur(6px);
   padding: 6px 16px; border-radius: 999px; font-size: 13px; font-weight: 600;
 }
-.rc-car-info { padding: 28px 30px; }
+.rc-car-info { padding: 22px 24px; }
 .rc-car-head { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
 .rc-car-head h3 { font-family: 'Noto Serif SC', serif; font-size: 1.5rem; font-weight: 900; color: var(--primary); }
 .rc-car-price { text-align: right; }
@@ -704,7 +704,7 @@ body {
 
 /* 电车（新能源）方案 */
 .rc-ev {
-  border-radius: 20px; overflow: hidden; margin-bottom: 36px;
+  border-radius: 20px; overflow: hidden; margin-bottom: 24px;
   background: var(--white);
   box-shadow: 0 4px 24px rgba(27,67,50,0.08);
   border: 1px solid rgba(27,67,50,0.06);
@@ -776,7 +776,7 @@ body {
 .rc-block-title i { color: var(--accent); }
 
 /* 平台 */
-.rc-platforms { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 36px; }
+.rc-platforms { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
 .rc-platform-card {
   background: var(--white); border-radius: 14px; padding: 18px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.05); border: 1px solid rgba(27,67,50,0.06);
@@ -791,7 +791,7 @@ body {
 /* 双栏面板 */
 .rc-two-col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 24px; }
 .rc-panel {
-  background: var(--white); border-radius: 16px; padding: 24px;
+  background: var(--white); border-radius: 16px; padding: 20px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.05); border: 1px solid rgba(27,67,50,0.06);
 }
 
